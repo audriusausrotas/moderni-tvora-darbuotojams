@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: "landingPage",
+  name: "skaiciuokle",
   components: {},
   data() {
     return {};

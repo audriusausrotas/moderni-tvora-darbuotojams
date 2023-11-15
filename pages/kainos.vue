@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: "landingPage",
+  name: "kainos",
   components: {},
   data() {
     return {};
