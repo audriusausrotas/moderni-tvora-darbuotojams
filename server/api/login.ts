@@ -1,11 +1,11 @@
 import { userSchema } from "../models/userSchema";
-const bcrypt = require("bcrypt")
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 export default defineEventHandler(async (event) => {
   const { email, password } = await readBody(event);
 
-  console.log(email)
+  console.log(email);
   const data = await userSchema.findOne({ email });
 
   if (!data)
@@ -25,8 +25,9 @@ export default defineEventHandler(async (event) => {
       process.env.TOKEN_SECRET
     );
 
-  data.password = "";
-  console.log(data)
+    data.password = "";
+    console.log(data);
 
-  return { success: true, data: data, message: "all good" };
+    return { success: true, data: data, message: "all good" };
+  }
 });
