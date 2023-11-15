@@ -1,7 +1,6 @@
 <script setup lang="js"></script>
 
 <template>
-  <Navigation />
-  <slot />
+  <div>navigation</div>
 </template>
 <style scoped></style>
