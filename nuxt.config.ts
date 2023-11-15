@@ -8,4 +8,10 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: ["nuxt-mongoose"],
+  mongoose: {
+    uri: process.env.MONGODB_URI,
+    options: {},
+    modelsDir: "models",
+  },
 });
