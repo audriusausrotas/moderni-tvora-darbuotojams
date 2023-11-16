@@ -1,11 +1,14 @@
 <script setup lang="js">
 import useError from "~/composables/useError"
+import {useUserStore} from "~/store/user"
 
 const login = ref(true);
 const username = ref("");
 const email = ref("");
 const password = ref("");
 const retypePassword = ref("");
+
+const userStore = useUserStore();
 const {setError, message, isError} = useError()
 
 
@@ -21,6 +24,8 @@ const loginHandler = async () => {
   });
 
   if (data.value.success) {
+    localStorage.setItem("mtud", data.value.message)
+    userStore.setUser(data.value.data)
     clearFields();
     await navigateTo('/')
   } else {
