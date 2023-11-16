@@ -1,61 +1,60 @@
 <script setup lang="js">
+import useError from "~/composables/useError"
 
 const login = ref(true);
 const username = ref("");
 const email = ref("");
 const password = ref("");
 const retypePassword = ref("");
+const {setError, message, isError} = useError()
 
-const changeLogin = ()=>{
-  clearFields()
-  login.value = !login.value
-};
 
-const  loginHandler = async () => {
-  if (!email.value || !password.value) {
-    // showError("Užpildykite visus laukus", true);
-    return;
-  }
+const loginHandler = async () => {
 
-  if (!email.value.includes("@")) {
-    // showError("Neteisingas elektroninis paštas", true);
-    return;
-  }
+  if (!email.value || !password.value || !email.value.includes("@")) return setError("užpildykite visus laukus", true);
+
   const loginData = { email: email.value, password: password.value };
 
+  const { data } = await useFetch("/api/login", {
+    method: "post",
+    body: loginData
+  });
 
-    const {data} = await useFetch("/api/login", {
-      method:"post",
-      body: loginData
-    })
-
-    if (!data.value.success){
-
-    } else {
-
-    }
-
-
-
-    console.log(data)
-
-      // httpRequests.post("workersLogin", loginData).then((data) => {
-      //   console.log(data);
-      //   if (!data.success) {
-      //     showError(data.message, true);
-      //   } else {
-      //     loginAction({ token: data.message, user: data.data });
-      //     $router.push("/lt/darbuotojams/skaiciuokle");
-      //   }
-      // });
-
+  if (data.value.success) {
+    clearFields();
+    await navigateTo('/')
+  } else {
+    setError(data.value.message, true)
+  }
 };
 
 const registerHandler = async () => {
 
-}
-const clearFields = () => {
-  console.log(email.value)
+  if (!email.value || !password.value || !email.value.includes("@") || !username.value || !retypePassword.value)  return setError("užpildykite visus laukus", true);
+  if (password.value !== retypePassword.value)  return setError("Slapta=od=iai nesutampa", true);
+
+  const loginData = { email: email.value, password: password.value, username: username.value };
+
+  const { data } = await useFetch("/api/register", {
+    method: "post",
+    body: loginData
+  });
+
+  if (data.value.success) {
+    clearFields();
+    changeLogin()
+    setError("registracija sėkminga", false);
+  } else {
+     setError(data.value.message, true);
+    }
+  };
+
+  const changeLogin = () => {
+    clearFields();
+    login.value = !login.value;
+  };
+
+  const clearFields = () => {
   email.value = "";
   password.value = "";
   retypePassword.value = "";
@@ -72,13 +71,12 @@ const clearFields = () => {
       <BaseInput
         v-if="!login"
         :name="username"
-        @update:name="(v) => (name = v)"
+        @update:name="(v) => (username = v)"
         placeholder="Vardas"
         label="Vartotojo vardas"
       />
 
       <BaseInput
-        v-model="email"
         :name="email"
         @update:name="(v) => (email = v)"
         placeholder="pavyzdys@gmail.com"
@@ -117,6 +115,8 @@ const clearFields = () => {
           >Prisijunk</span
         >
       </p>
+
+      <Error :message="message" :isError="isError" />
     </div>
   </div>
 </template>
