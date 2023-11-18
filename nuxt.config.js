@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-mongoose", "@pinia/nuxt"],
+  modules: ["nuxt-mongoose", "@pinia/nuxt", "@nuxt/image"],
   mongoose: {
     uri: process.env.MONGODB_URI,
     options: {},

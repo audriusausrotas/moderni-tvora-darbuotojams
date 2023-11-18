@@ -7,7 +7,8 @@ export const useUserStore = defineStore("user", {
 
   actions: {
     setUser(data) {
-      this.user = data;
+      this.user = data.user;
+      localStorage.setItem("mtud", data.token);
     },
 
     clearUser() {

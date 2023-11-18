@@ -9,7 +9,18 @@ export default {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        light: "#E1E1E1",
+        dark: "#D9D9D9",
+      },
+      boxShadow: {
+        bottom: "0 4px 2px -2px rgba(0, 0, 0, 0.1)",
+      },
+      maxWidth: {
+        custom: "1600px",
+      },
+    },
   },
   plugins: [],
 };

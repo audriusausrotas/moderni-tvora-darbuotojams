@@ -8,9 +8,8 @@ const email = ref("");
 const password = ref("");
 const retypePassword = ref("");
 
-const userStore = useUserStore();
+const useUser = useUserStore();
 const {setError, message, isError} = useError()
-
 
 const loginHandler = async () => {
 
@@ -24,8 +23,7 @@ const loginHandler = async () => {
   });
 
   if (data.value.success) {
-    localStorage.setItem("mtud", data.value.message)
-    userStore.setUser(data.value.data)
+    useUser.setUser({user: data.value.data, token: data.value.message})
     clearFields();
     await navigateTo('/')
   } else {

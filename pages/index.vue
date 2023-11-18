@@ -1,14 +1,6 @@
+<script setup lang="js"></script>
+
 <template>
   <div></div>
 </template>
-<script>
-export default {
-  name: "landingPage",
-  components: {},
-  data() {
-    return {};
-  },
-  methods: {},
-};
-</script>
 <style scoped></style>
