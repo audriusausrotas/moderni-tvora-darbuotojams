@@ -1,10 +1,13 @@
 <script setup lang="js">
+import {useUserStore} from "~/store/user"
+
+const useUser = useUserStore()
 
 const menuLinks = [{name: "Projektai", link: "/", iconPath: "/icons/projects.svg"},{name: "Skaičiuoklė", link: "/skaiciuokle", iconPath: "/icons/calculations.svg"},{name: "Sąmata", link: "/samata", iconPath: "/icons/projects.svg"},{name: "Kainos", link: "/kainos", iconPath: "/icons/prices.svg"},]
 </script>
 
 <template>
-  <nav class="flex flex-col gap-10">
+  <nav v-if="useUser?.user?.username" class="flex flex-col gap-10">
     <div>
       <div class="flex items-center gap-2">
         <NuxtImg src="/icons/arrowDown.svg" width="8" />

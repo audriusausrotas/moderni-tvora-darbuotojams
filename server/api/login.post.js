@@ -1,5 +1,6 @@
 import { userSchema } from "../models/userSchema";
 import bcrypt from "bcrypt";
+import { setCookie } from "h3";
 import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async (event) => {
@@ -47,6 +48,8 @@ export default defineEventHandler(async (event) => {
 
     data.password = "";
 
-    return { success: true, data: data, message: token };
+    setCookie(event, "mtud", token);
+
+    return { success: true, data: data, message: "" };
   }
 });

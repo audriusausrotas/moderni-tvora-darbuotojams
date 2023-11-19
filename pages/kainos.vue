@@ -1,14 +1,19 @@
 <script setup lang="js">
 import {useProductsStore} from "~/store/products"
+
 const useProducts = useProductsStore()
 
-const products = useProducts.products
+const products = ref(useProducts.products)
+
+watch(() => useProducts.products, (newProducts) => {
+  products.value = newProducts
+});
 </script>
 <template>
   <div>
-    <div v-for="(products, index) in products" :key="index" class="flex gap-8">
-      <h2>{{ products.name }}</h2>
-      <h2>{{ products.price }}</h2>
+    <div v-for="(product, index) in products" :key="index" class="flex gap-8">
+      <h2>{{ product.name }}</h2>
+      <h2>{{ product.price }}</h2>
     </div>
   </div>
 </template>

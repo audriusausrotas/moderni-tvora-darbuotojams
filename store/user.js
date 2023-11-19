@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { useCookie } from "nuxt/app";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -7,12 +7,14 @@ export const useUserStore = defineStore("user", {
 
   actions: {
     setUser(data) {
-      this.user = data.user;
-      localStorage.setItem("mtud", data.token);
+      this.user = data;
     },
 
-    clearUser() {
+    logout() {
       this.user = null;
+      const cookie = useCookie("mtud");
+      cookie.value = null;
     },
   },
+  getters: {},
 });

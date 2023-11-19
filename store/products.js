@@ -2,11 +2,12 @@ import { defineStore } from "pinia";
 
 export const useProductsStore = defineStore("products", {
   state: () => ({
-    products: [],
+    products: reactive([]),
   }),
 
   actions: {
     async fetchProducts() {
+      console.log("fecina produktus");
       try {
         let currentPage = 1;
         let totalPages = 1;
@@ -22,6 +23,7 @@ export const useProductsStore = defineStore("products", {
           totalPages = last_page;
           currentPage++;
         }
+
         this.products = [...allProducts];
       } catch (error) {
         console.error("Error fetching products:", error);

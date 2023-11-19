@@ -23,7 +23,7 @@ const loginHandler = async () => {
   });
 
   if (data.value.success) {
-    useUser.setUser({user: data.value.data, token: data.value.message})
+    useUser.setUser(data.value.data)
     clearFields();
     await navigateTo('/')
   } else {
@@ -66,7 +66,7 @@ const registerHandler = async () => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center pt-20">
+  <div class="flex items-center justify-center pt-20 m-auto">
     <div class="flex flex-col items-center gap-4">
       <h3 v-if="login" class="text-2xl">Prisijungti</h3>
       <h3 v-else class="text-2xl">Registruotis</h3>
