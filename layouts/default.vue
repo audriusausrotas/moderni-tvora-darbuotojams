@@ -2,7 +2,7 @@
 
 <template>
   <TopBar />
-  <div class="flex px-12 m-auto max-w-custom">
+  <div class="flex gap-12 px-12 m-auto max-w-custom">
     <Navigation />
     <slot />
   </div>

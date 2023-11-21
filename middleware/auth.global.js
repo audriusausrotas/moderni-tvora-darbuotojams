@@ -1,6 +1,5 @@
 import { useCookie } from "nuxt/app";
 import { useUserStore } from "~/store/user";
-import { useProductsStore } from "~/store/products";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const useUser = useUserStore();
