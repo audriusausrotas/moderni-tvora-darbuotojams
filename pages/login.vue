@@ -36,9 +36,9 @@ const loginHandler = async () => {
 const registerHandler = async () => {
 
   if (!email.value || !password.value || !email.value.includes("@") || !username.value || !retypePassword.value)  return setError("užpildykite visus laukus", true);
-  if (password.value !== retypePassword.value)  return setError("Slapta=od=iai nesutampa", true);
+  if (password.value !== retypePassword.value)  return setError("Slaptažodžiai nesutampa", true);
 
-  const loginData = { email: email.value, password: password.value, username: username.value };
+  const loginData = { email: email.value, password: password.value, retypePassword:retypePassword.value, username: username.value };
 
   const { data } = await useFetch("/api/register", {
     method: "post",
