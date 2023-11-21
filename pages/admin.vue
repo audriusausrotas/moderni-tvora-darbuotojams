@@ -8,6 +8,18 @@ if (useUser.users.length === 0){
   useUser.setAllUsers(data.data.value.data)
 }
 
+const userChangesHandler = async (id, type)=>{
+  const postData = {userId:id, changeType:type}
+  const {data} = await useFetch("/api/userChanges", {
+    method:"post",
+    body: postData
+  })
+  console.log(data.value)
+
+  if (data.value.success){
+  }
+}
+
 const deleteHandler =(id)=>{
   console.log(id)
 }
@@ -35,6 +47,7 @@ const deleteHandler =(id)=>{
         <div
           :class="user.verified ? 'bg-verified ' : 'bg-unverified'"
           class="flex gap-2 px-2 py-1 rounded-lg w-fit"
+          @click="userChangesHandler(user._id, 'verify')"
         >
           <NuxtImg
             :src="user.verified ? '/icons/ellipseg.svg' : '/icons/ellipser.svg'"
@@ -47,6 +60,7 @@ const deleteHandler =(id)=>{
       <div
         class="flex-[4]"
         :class="user.admin ? 'text-green-500' : 'text-yellow-500'"
+        @click="userChangesHandler(user._id, 'admin')"
       >
         {{ user.admin ? "Remove Admin" : "Make admin" }}
       </div>
