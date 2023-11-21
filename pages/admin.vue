@@ -8,8 +8,6 @@ if (useUser.users.length === 0){
   useUser.setAllUsers(data.data.value.data)
 }
 
-
-
 const deleteHandler =(id)=>{
   console.log(id)
 }

@@ -16,11 +16,13 @@ const loginHandler = async () => {
   if (!email.value || !password.value || !email.value.includes("@")) return setError("užpildykite visus laukus", true);
 
   const loginData = { email: email.value, password: password.value };
+  console.log("asdf")
 
   const { data } = await useFetch("/api/login", {
     method: "post",
     body: loginData
   });
+  console.log(data)
 
   if (data.value.success) {
     useUser.setUser(data.value.data)
