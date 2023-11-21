@@ -1,9 +1,14 @@
 <script setup lang="js">
 import { useUserStore } from '~/store/user';
 
-const { users } = toRefs(useUserStore())
+const useUser = useUserStore()
 
-const users2 = [{username: "Audrius"}]
+if (useUser.users.length === 0){
+  const data = await useFetch("/api/users");
+  useUser.setAllUsers(data.data.value.data)
+}
+
+
 
 const deleteHandler =(id)=>{
   console.log(id)
@@ -22,7 +27,7 @@ const deleteHandler =(id)=>{
     </div>
 
     <div
-      v-for="(user, index) in users"
+      v-for="(user, index) in useUser.users"
       :key="user._id"
       class="flex py-4 capitalize border-b"
     >

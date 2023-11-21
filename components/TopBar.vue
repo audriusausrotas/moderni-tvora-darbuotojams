@@ -18,12 +18,6 @@ watchEffect(() => {
   }
 });
 
-watchEffect(() => {
-  if (!useUser?.users?.length > 0 && useUser?.user?.admin) {
-    useUser.getAllUsers();
-  }
-});
-
 watch(
   () => route.path,
   (newPath) => {

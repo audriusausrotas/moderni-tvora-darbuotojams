@@ -1,4 +1,4 @@
-import { useCookie, useFetch } from "nuxt/app";
+import { useCookie } from "nuxt/app";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -9,19 +9,16 @@ export const useUserStore = defineStore("user", {
   actions: {
     async setUser(data) {
       this.user = data;
-      if (data.admin && this.users.length === 0) {
-        await this.getAllUsers();
-      }
     },
 
     logout() {
       this.user = null;
       const cookie = useCookie("mtud");
       cookie.value = null;
+      this.users = [];
     },
-    async getAllUsers() {
-      const data = await useFetch("/api/users");
-      this.users = [...data.data.value.data];
+    async setAllUsers(data) {
+      this.users = data;
     },
   },
   getters: {},
