@@ -57,5 +57,5 @@ export default defineEventHandler(async (event) => {
 
   data.password = "";
 
-  return { success: true, data: token, message: "sekmingai prisiregistruota" };
+  return { success: true, data: null, message: "sekmingai prisiregistruota" };
 });
