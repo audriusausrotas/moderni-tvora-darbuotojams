@@ -17,9 +17,19 @@ export const useUserStore = defineStore("user", {
       cookie.value = null;
       this.users = [];
     },
-    async setAllUsers(data) {
+    setAllUsers(data) {
       this.users = data;
     },
   },
-  getters: {},
+  getters: {
+    updateUser: (state) => (data) => {
+      state.users = state.users.map((user) => {
+        if (user._id === data._id) return data;
+        else return user;
+      });
+    },
+    deleteUser: (state) => (data) => {
+      state.users = state.users.filter((user) => user._id !== data);
+    },
+  },
 });

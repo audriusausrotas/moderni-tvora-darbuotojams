@@ -4,11 +4,6 @@ import bcrypt from "bcrypt";
 export default defineEventHandler(async (event) => {
   const { email, password, retypePassword, username } = await readBody(event);
 
-  console.log(email);
-  console.log(password);
-  console.log(retypePassword);
-  console.log(username);
-
   if (!email || !password || !retypePassword || !username)
     return {
       success: false,

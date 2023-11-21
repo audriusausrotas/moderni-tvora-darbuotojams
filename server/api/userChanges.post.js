@@ -4,9 +4,7 @@ import bcrypt from "bcrypt";
 export default defineEventHandler(async (event) => {
   const { _id, password, userId, changeType } = await readBody(event);
 
-  if (!_id) return { success: false, data: null, message: "nera ID" };
-
-  const data = await userSchema.findById({ _id });
+  const data = await userSchema.findById(_id);
 
   if (!data)
     return {
@@ -15,7 +13,6 @@ export default defineEventHandler(async (event) => {
       message: "Vartotojas nerastas",
     };
 
-  // if ((await bcrypt.compare(password, data.password)) && data.admin) {
   const selectedUser = await userSchema.findById(userId);
 
   if (changeType === "admin") {
@@ -43,13 +40,17 @@ export default defineEventHandler(async (event) => {
       message: "Pakeitimai atlikti",
     };
   } else if (changeType === "delete") {
-    await userSchema.findByIdAndDelete(userId);
+    if ((await bcrypt.compare(password, data.password)) && data.admin) {
+      await userSchema.findByIdAndDelete(userId);
 
-    return {
-      success: true,
-      data: userId,
-      message: "Vartotojas ištrintas",
-    };
+      return {
+        success: true,
+        data: userId,
+        message: "Pakeitimai atlikti",
+      };
+    } else {
+      return { success: false, data: null, message: "Klaidingas slaptažodis" };
+    }
   } else {
     return {
       success: false,
@@ -57,7 +58,4 @@ export default defineEventHandler(async (event) => {
       message: "Neteisinga užklausa",
     };
   }
-  // } else {
-  // return { success: false, data: null, message: "Klaidingas slaptažodis" };
-  // }
 });
