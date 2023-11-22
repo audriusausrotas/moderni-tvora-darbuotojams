@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 export default defineEventHandler(async (event) => {
   if (
     event.node.req.url.includes("auth") ||
-    event.node.req.url.includes("userChanges")
+    event.node.req.url.includes("userChanges") ||
+    event.node.req.url.includes("profile")
   ) {
     const body = await readBody(event);
     const token = getCookie(event, "mtud");

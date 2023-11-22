@@ -53,7 +53,7 @@ const deleteHandler= (id)=>{
 </script>
 
 <template>
-  <div class="w-full p-8 border rounded-3xl justify">
+  <div>
     <div class="flex pb-6 text-gray-400 capitalize">
       <div class="flex-1">nr</div>
       <p class="flex-[4]">full name</p>

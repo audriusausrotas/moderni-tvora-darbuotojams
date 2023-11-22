@@ -53,9 +53,14 @@ function logoutHandler(){
         class="relative flex items-center gap-2 select-none hover:cursor-pointer"
       >
         <div
-          class="flex items-center justify-center w-12 h-12 font-semibold text-center capitalize rounded-full bg-dark"
+          class="flex items-center justify-center w-12 h-12 overflow-hidden font-semibold text-center uppercase rounded-full bg-dark"
         >
-          {{ initials }}
+          <NuxtImg
+            v-if="true"
+            :src="useUser.user.photo"
+            class="object-cover object-center w-full h-full"
+          />
+          <p v-else>{{ initials }}</p>
         </div>
 
         <div>{{ useUser.user.username }}</div>

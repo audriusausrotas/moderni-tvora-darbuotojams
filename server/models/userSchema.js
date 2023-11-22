@@ -16,6 +16,11 @@ export const userSchema = defineMongooseModel(
       required: false,
       default: false,
     },
+    photo: {
+      type: String,
+      required: false,
+      default: "",
+    },
   },
   { collection: "users" }
 );

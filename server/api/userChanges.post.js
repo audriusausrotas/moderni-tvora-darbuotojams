@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
       message: "Pakeitimai atlikti",
     };
   } else if (changeType === "delete") {
-    if ((await bcrypt.compare(password, data.password)) && data.admin) {
+    if (await bcrypt.compare(password, data.password)) {
       await userSchema.findByIdAndDelete(userId);
 
       return {

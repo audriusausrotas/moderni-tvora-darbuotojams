@@ -1,13 +1,16 @@
-<script setup lang="js">
-import {useProductsStore} from "~/store/products"
+<script setup>
+import { useProductsStore } from "~/store/products";
 
-const useProducts = useProductsStore()
+const useProducts = useProductsStore();
 
-const products = ref(useProducts.products)
+const products = ref(useProducts.products);
 
-watch(() => useProducts.products, (newProducts) => {
-  products.value = newProducts
-});
+watch(
+  () => useProducts.products,
+  (newProducts) => {
+    products.value = newProducts;
+  }
+);
 </script>
 <template>
   <div>
