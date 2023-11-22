@@ -1,6 +1,6 @@
 <script setup lang="js">
-import useError from "~/composables/useError"
 import {useUserStore} from "~/store/user"
+import useError from "~/composables/useError"
 
 const login = ref(true);
 const username = ref("");

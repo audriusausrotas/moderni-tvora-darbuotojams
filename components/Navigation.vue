@@ -16,7 +16,7 @@ const menuLinks = [{name: "Projektai", link: "/", iconPath: "/icons/projects.svg
       <div v-for="link in menuLinks">
         <NuxtLink
           :to="link.link"
-          class="flex gap-2 py-2 pr-4 rounded-md hover:bg-dark"
+          class="flex gap-2 px-4 py-2 rounded-md hover:bg-dark"
         >
           <NuxtImg :src="link.iconPath" width="20" />
 
@@ -31,7 +31,7 @@ const menuLinks = [{name: "Projektai", link: "/", iconPath: "/icons/projects.svg
       </div>
       <NuxtLink
         to="/admin"
-        class="flex gap-2 py-2 pr-4 rounded-md hover:bg-dark"
+        class="flex gap-2 px-4 py-2 rounded-md hover:bg-dark"
       >
         <NuxtImg src="/icons/users.svg" width="20" />
         <h3 class="capitalize">vartotojai</h3>

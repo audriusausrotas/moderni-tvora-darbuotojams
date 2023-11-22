@@ -2,10 +2,11 @@
 import { useUserStore } from '~/store/user';
 import useError from '~/composables/useError';
 
+
 const useUser = useUserStore();
 const {setError, message, isError} = useError()
 const password = ref("")
-const modalOpen = ref(true)
+const modalOpen = ref(false)
 const selectedUser = ref("")
 
 if (useUser.users.length === 0){
