@@ -6,6 +6,13 @@ export default defineEventHandler(async (event) => {
 
   const data = await userSchema.findById(_id);
 
+  if (!data.admin)
+    return {
+      success: false,
+      data: null,
+      message: "Vartotojas neturi teisiu",
+    };
+
   if (!data)
     return {
       success: false,
