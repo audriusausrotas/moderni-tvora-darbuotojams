@@ -30,49 +30,66 @@ const saveHandler = async () => {
 </script>
 
 <template>
-  <div class="flex gap-12">
-    <div class="flex flex-col gap-4">
-      <div
-        class="flex items-center justify-center overflow-hidden bg-gray-100 rounded-xl h-60 w-60"
-      >
-        <NuxtImg
-          v-if="useUser.user.photo"
-          :src="useUser.user.photo"
-          class="object-cover object-center w-full h-full"
-        />
-        <div v-else class="text-3xl uppercase">{{ initials }}</div>
+  <div class="flex gap-4">
+    <div class="flex flex-col flex-1 gap-8">
+      <div class="flex items-center gap-10">
+        <div
+          class="flex items-center justify-center overflow-hidden bg-gray-100 rounded-xl h-60 w-60"
+        >
+          <NuxtImg
+            v-if="useUser.user.photo"
+            :src="useUser.user.photo"
+            alt="Vartotojo nuotrauka"
+            class="object-cover object-center w-full h-full"
+          />
+          <h3 v-else class="text-3xl uppercase">{{ initials }}</h3>
+        </div>
+
+        <div class="flex flex-col gap-4 capitalize">
+          <h3 class="text-4xl font-semibold">
+            {{ useUser.user.username }}
+          </h3>
+          <div>
+            <p v-if="useUser.user.admin">Vartotojo tipas:</p>
+
+            <h5 class="font-semibold">
+              {{
+                useUser.user.admin ? "administratorius" : "paprastas vartotojas"
+              }}
+            </h5>
+          </div>
+          <div>
+            <h3>El. Paštas:</h3>
+            <h5 class="font-semibold normal-case">{{ useUser.user.email }}</h5>
+          </div>
+        </div>
       </div>
       <BaseInput
         :name="url"
         @update:name="(v) => (url = v)"
         placeholder="Nuotraukos nuoroda"
-      />
+        width="full"
+      >
+        <NuxtImg src="/icons/link.svg" width="20" />
+      </BaseInput>
     </div>
-
-    <div class="flex gap-12">
-      <div class="flex flex-col gap-4 capitalize">
-        <p v-if="useUser.user.admin">administratorius</p>
-        <p v-else>Paprastas vartotojas</p>
-        <div>
-          {{ useUser.user.username }}
-        </div>
-        <div>{{ useUser.user.email }}</div>
-      </div>
-      <div class="flex flex-col gap-4">
-        <BaseInput
-          :name="newPassword"
-          type="password"
-          @update:name="(v) => (newPassword = v)"
-          placeholder="Naujas slaptažodis"
-        />
-        <BaseInput
-          :name="password"
-          type="password"
-          @update:name="(v) => (password = v)"
-          placeholder="dabartinis slaptažodis"
-        />
-        <BaseButton name="išsaugoti pakeitimus" @click="saveHandler" />
-      </div>
+    <div class="flex flex-col items-center justify-between flex-[2]">
+      <h4 class="text-2xl font-semibold">Pakeisti Slaptažodį</h4>
+      <BaseInput
+        :name="newPassword"
+        type="password"
+        @update:name="(v) => (newPassword = v)"
+        placeholder="Naujas slaptažodis"
+        label="Naujas Slaptažodis"
+      />
+      <BaseInput
+        :name="password"
+        type="password"
+        @update:name="(v) => (password = v)"
+        placeholder="Pakartoti slaptažodį"
+        label="Pakartoti slaptažodį"
+      />
+      <BaseButton name="išsaugoti pakeitimus" @click="saveHandler" />
     </div>
   </div>
 </template>

@@ -3,13 +3,12 @@ import { useRouter, useRoute } from "nuxt/app";
 import {useUserStore} from "~/store/user"
 import { useProductsStore } from "~/store/products";
 
-const route = useRoute()
+
 const router = useRouter()
 const useUser = useUserStore()
 const useProducts = useProductsStore()
 
 const isOpen = ref(false)
-const currentPath = ref(route.path.replace("/", ""))
 const initials = computed(() => useUser?.user?.username.slice(0, 2));
 
 watchEffect(() => {
@@ -17,13 +16,6 @@ watchEffect(() => {
     useProducts.fetchProducts();
   }
 });
-
-watch(
-  () => route.path,
-  (newPath) => {
-    currentPath.value = newPath.replace("/", "")
-  }
-)
 
 function logoutHandler(){
   useUser.logout()
@@ -82,16 +74,6 @@ function logoutHandler(){
         </div>
       </div>
     </div>
-  </div>
-
-  <div
-    v-if="useUser?.user?.username"
-    class="flex items-center gap-2 px-12 py-6 m-auto max-w-custom"
-  >
-    <NuxtImg src="/icons/menu.svg" width="16" />
-    <h2 class="text-xl font-bold capitalize">
-      {{ currentPath.length > 0 ? currentPath : "Projektai" }}
-    </h2>
   </div>
 </template>
 <style scoped></style>

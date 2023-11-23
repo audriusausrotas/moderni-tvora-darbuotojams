@@ -1,5 +1,5 @@
 <script setup lang="js">
-defineProps(["placeholder", "label", "type", "name"]);
+defineProps(["placeholder", "label", "type", "name", "width"]);
 
 const emit = defineEmits();
 
@@ -8,16 +8,23 @@ const emitUpdate = (value) => emit("update:name", value);
 "
 
 <template>
-  <div class="flex flex-col capitalize">
+  <div class="flex flex-col gap-2 capitalize">
     <label :for="label" class="pl-2 text-sm">{{ label }}</label>
-    <input
-      :value="name"
-      :placeholder="placeholder"
-      :id="label"
-      :type="type"
-      @input="emitUpdate($event.target.value)"
-      class="px-4 py-2 border border-gray-400 rounded-md shadow-md w-60"
-    />
+
+    <div
+      class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-inputBg border-inputBorder"
+      :class="width ? 'w-' + width : 'w-60'"
+    >
+      <slot />
+      <input
+        :value="name"
+        :placeholder="placeholder"
+        :id="label"
+        :type="type"
+        @input="emitUpdate($event.target.value)"
+        class="w-full h-full outline-none bg-inputBg"
+      />
+    </div>
   </div>
 </template>
 <style scoped></style>

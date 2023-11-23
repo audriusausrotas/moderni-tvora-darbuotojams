@@ -56,10 +56,10 @@ const deleteHandler= (id)=>{
   <div>
     <div class="flex pb-6 text-gray-400 capitalize">
       <div class="flex-1">nr</div>
-      <p class="flex-[4]">full name</p>
-      <p class="flex-[4]">account status</p>
-      <p class="flex-[6]">email</p>
-      <p class="flex-[4]">account type</p>
+      <p class="flex-[4]">vartotojo vardas</p>
+      <p class="flex-[4]">paskyros statusas</p>
+      <p class="flex-[6]">el. paštas</p>
+      <p class="flex-[4]">paskyros tipas</p>
       <div class="flex-1"></div>
     </div>
 
@@ -73,14 +73,14 @@ const deleteHandler= (id)=>{
       <div class="flex-[4]">
         <div
           :class="user.verified ? 'bg-verified ' : 'bg-unverified'"
-          class="flex gap-2 px-2 py-1 rounded-lg w-fit hover:cursor-pointer"
+          class="flex gap-2 px-4 py-1 rounded-lg w-36 hover:cursor-pointer"
           @click="userChangesHandler(user._id, 'verify')"
         >
           <NuxtImg
             :src="user.verified ? '/icons/ellipseg.svg' : '/icons/ellipser.svg'"
             width="8"
           />
-          {{ user.verified ? "verified" : "unverified" }}
+          {{ user.verified ? "patvirtintas" : "nepatvirtintas" }}
         </div>
       </div>
       <div class="flex-[6]">{{ user.email }}</div>
@@ -89,7 +89,7 @@ const deleteHandler= (id)=>{
         :class="user.admin ? 'text-green-500' : 'text-yellow-500'"
         @click="userChangesHandler(user._id, 'admin')"
       >
-        {{ user.admin ? "Remove Admin" : "Make admin" }}
+        {{ user.admin ? "administratorius" : "paprastas vartotojas" }}
       </div>
       <div
         class="flex justify-end flex-1 hover:cursor-pointer"
