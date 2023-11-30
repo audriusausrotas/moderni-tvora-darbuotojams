@@ -18,10 +18,10 @@ const changeHandler = (value) => {
 </script>
 
 <template>
-  <div class="relative w-52 selct-none">
+  <div class="relative w-48 selct-none">
     <div
       @click="isOpen = !isOpen"
-      class="flex justify-between gap-3 px-4 py-2 border cursor-pointer border-gray-light bg-gray-ultra-light rounded-2xl"
+      class="flex justify-between gap-3 py-2 pl-4 border cursor-pointer border-gray-light bg-gray-ultra-light rounded-2xl"
     >
       <div class="flex gap-3">
         <NuxtImg
@@ -39,7 +39,7 @@ const changeHandler = (value) => {
     </div>
     <div
       v-if="isOpen"
-      class="absolute left-0 z-50 flex flex-col overflow-hidden border rounded-xl top-10 border-gray-light bg-gray-ultra-light w-52"
+      class="absolute left-0 z-50 flex flex-col w-48 overflow-hidden border rounded-xl top-10 border-gray-light bg-gray-ultra-light"
     >
       <div
         v-for="(value, index) in values"
