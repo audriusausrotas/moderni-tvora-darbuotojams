@@ -4,12 +4,12 @@ defineProps(["name", "width", "type"]);
 
 <template>
   <button
-    class="flex items-center justify-center gap-2 px-2 py-1 capitalize transition-colors rounded-lg shadow-sm transi"
+    class="flex items-center justify-center gap-2 px-4 py-2 capitalize transition-colors rounded-lg shadow-sm"
     :class="[
       width ? 'w-' + width : 'w-60',
       type === 'special'
-        ? 'text-black  hover:bg-red-600 hover:text-white border border-inputBorder'
-        : 'text-white bg-gray-600 hover:bg-red-600 hover:text-white',
+        ? 'text-black  hover:bg-red-full hover:text-white border border-inputBorder'
+        : 'text-white bg-dark-full hover:bg-red-full hover:text-white',
     ]"
   >
     <slot />

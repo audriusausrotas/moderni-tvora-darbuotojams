@@ -3,10 +3,10 @@ import {useUserStore} from "~/store/user"
 import useError from "~/composables/useError"
 
 const login = ref(true);
-const username = ref("");
-const email = ref("");
-const password = ref("");
-const retypePassword = ref("");
+const username = useState("username", ()=>"");
+const email = useState("email", ()=>"");
+const password = useState("password", ()=>"");
+const retypePassword = useState("retypePassword", ()=>"");
 
 const useUser = useUserStore();
 const {setError, message, isError} = useError()

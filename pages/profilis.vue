@@ -5,9 +5,9 @@ import { useUserStore } from "~/store/user";
 const useUser = useUserStore();
 
 const initials = computed(() => useUser.user?.username.slice(0, 2));
-const url = ref("");
-const newPassword = ref("");
-const password = ref("");
+const url = useState("url", () => "");
+const newPassword = useState("newPassword", () => "");
+const password = useState("password", () => "");
 
 const saveHandler = async () => {
   const reqData = {
@@ -34,7 +34,7 @@ const saveHandler = async () => {
     <div class="flex flex-col flex-1 gap-8">
       <div class="flex items-center gap-10">
         <div
-          class="flex items-center justify-center overflow-hidden bg-gray-100 rounded-xl h-60 w-60"
+          class="flex items-center justify-center overflow-hidden bg-gray-light rounded-xl h-60 w-60"
         >
           <NuxtImg
             v-if="useUser.user.photo"

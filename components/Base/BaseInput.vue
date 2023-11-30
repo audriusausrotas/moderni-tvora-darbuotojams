@@ -12,7 +12,7 @@ const emitUpdate = (value) => emit("update:name", value);
     <label :for="label" class="pl-2 text-sm">{{ label }}</label>
 
     <div
-      class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-inputBg border-inputBorder"
+      class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-gray-ultra-light border-dark-ultra-light"
       :class="width ? 'w-' + width : 'w-60'"
     >
       <slot />
@@ -22,7 +22,7 @@ const emitUpdate = (value) => emit("update:name", value);
         :id="label"
         :type="type"
         @input="emitUpdate($event.target.value)"
-        class="w-full h-full outline-none bg-inputBg"
+        class="w-full h-full outline-none bg-inherit"
       />
     </div>
   </div>

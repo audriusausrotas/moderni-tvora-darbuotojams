@@ -11,12 +11,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        light: "#E1E1E1",
-        dark: "#D9D9D9",
-        verified: "rgba(0, 194, 80, 0.16)",
-        unverified: "rgba(200, 16, 46, 0.16)",
-        inputBg: "#F6F6F6",
-        inputBorder: "rgba(225, 225, 225, 0.50)",
+        "red-full": "#D82B33",
+        "dark-full": "#252224",
+        "gray-full": "#9C9C9C",
+        "red-light": "#F5C8CA;",
+        "dark-light": "#c7c6c6",
+        "gray-light": "#e5e5e5",
+        "red-ulta-light": "#fbe9ea",
+        "dark-ultra-light": "#E9E8E9",
+        "gray-ultra-light": "#f5f5f5",
       },
       boxShadow: {
         bottom: "0 4px 2px -2px rgba(0, 0, 0, 0.1)",

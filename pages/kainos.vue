@@ -2,8 +2,7 @@
 import { useProductsStore } from "~/store/products";
 
 const useProducts = useProductsStore();
-
-const products = ref(useProducts.products);
+const products = useState("products", () => useProducts.products);
 
 watch(
   () => useProducts.products,
@@ -15,7 +14,7 @@ watch(
 <template>
   <div class="flex flex-col gap-4">
     <div
-      class="flex px-8 py-4 text-lg font-semibold capitalize pr-36 bg-inputBg rounded-t-3xl"
+      class="flex px-8 py-4 text-lg font-semibold capitalize pr-36 bg-gray-ultra-light rounded-t-3xl"
     >
       <p class="w-10 text-center">nr</p>
       <p class="flex-[6] min-w-fit">produkto pavadinimas</p>

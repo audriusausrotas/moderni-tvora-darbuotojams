@@ -2,12 +2,11 @@
 import { useUserStore } from '~/store/user';
 import useError from '~/composables/useError';
 
-
 const useUser = useUserStore();
 const {setError, message, isError} = useError()
-const password = ref("")
-const modalOpen = ref(false)
-const selectedUser = ref("")
+const password = useState("password", ()=>"")
+const modalOpen = useState("modalOpen", ()=>false)
+const selectedUser = useState("selectedUser", ()=>"")
 
 if (useUser.users.length === 0){
   const data = await useFetch("/api/users");
@@ -71,26 +70,26 @@ const deleteHandler= (id)=>{
       <div class="flex-1">{{ index + 1 }}</div>
       <p class="flex-[4]">{{ user.username }}</p>
       <div class="flex-[4]">
-        <div
-          :class="user.verified ? 'bg-verified ' : 'bg-unverified'"
-          class="flex gap-2 px-4 py-1 rounded-lg w-36 hover:cursor-pointer"
-          @click="userChangesHandler(user._id, 'verify')"
-        >
-          <NuxtImg
-            :src="user.verified ? '/icons/ellipseg.svg' : '/icons/ellipser.svg'"
-            width="8"
-          />
-          {{ user.verified ? "patvirtintas" : "nepatvirtintas" }}
-        </div>
+        <BaseSelectField
+          :id="user._id"
+          name="verified"
+          :values="['patvirtintas', 'nepatvirtintas']"
+          :defaultValue="user?.verified ? 'patvirtintas' : 'nepatvirtintas'"
+          @onChange="userChangesHandler(user._id, 'verify')"
+        />
       </div>
       <div class="flex-[6]">{{ user.email }}</div>
-      <div
-        class="flex-[4] hover:cursor-pointer"
-        :class="user.admin ? 'text-green-500' : 'text-yellow-500'"
-        @click="userChangesHandler(user._id, 'admin')"
-      >
-        {{ user.admin ? "administratorius" : "paprastas vartotojas" }}
-      </div>
+
+      <BaseSelectField
+        :id="user._id"
+        name="admin"
+        :values="['administratorius', 'paprastas vartotojas']"
+        :defaultValue="
+          user?.admin ? 'administratorius' : 'paprastas vartotojas'
+        "
+        @onChange="userChangesHandler(user._id, 'admin')"
+      />
+
       <div
         class="flex justify-end flex-1 hover:cursor-pointer"
         @click="deleteHandler(user._id)"
@@ -99,28 +98,30 @@ const deleteHandler= (id)=>{
       </div>
     </div>
   </div>
-  <div
-    v-if="modalOpen"
-    class="absolute top-0 left-0 flex items-center justify-center w-screen h-screen bg-opacity-50 bg-slate-200"
-  >
+  <Teleport to="body">
     <div
-      class="flex flex-col items-center gap-8 p-12 bg-white border shadow-md rounded-xl"
+      v-if="modalOpen"
+      class="absolute top-0 left-0 flex items-center justify-center w-screen h-screen bg-opacity-80 bg-gray-ultra-light"
     >
-      <div class="flex flex-col items-center gap-8">
-        <p>Įveskite slaptaždodį norėdami ištrinti vartotoją</p>
-        <BaseInput
-          placeholder="Slaptažodis"
-          :name="password"
-          type="password"
-          @update:name="(v) => (password = v)"
-        />
+      <div
+        class="flex flex-col items-center gap-8 p-12 border shadow-md bg-gray-ultra-light rounded-xl"
+      >
+        <div class="flex flex-col items-center gap-8">
+          <p>Įveskite slaptaždodį norėdami ištrinti vartotoją</p>
+          <BaseInput
+            placeholder="Slaptažodis"
+            :name="password"
+            type="password"
+            @update:name="(v) => (password = v)"
+          />
+        </div>
+        <div class="flex gap-4">
+          <BaseButton name="atšaukti" @click="() => (modalOpen = false)" />
+          <BaseButton name="patvirtinti" @click="confirmHandler" />
+        </div>
+        <Error :message="message" :isError="isError" />
       </div>
-      <div class="flex gap-4">
-        <BaseButton name="atšaukti" @click="() => (modalOpen = false)" />
-        <BaseButton name="patvirtinti" @click="confirmHandler" />
-      </div>
-      <Error :message="message" :isError="isError" />
     </div>
-  </div>
+  </Teleport>
 </template>
 <style scoped></style>

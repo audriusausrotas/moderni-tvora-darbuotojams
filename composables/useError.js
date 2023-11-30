@@ -1,6 +1,6 @@
 export default function useError() {
-  const message = ref("");
-  const isError = ref(false);
+  const message = useState("message", () => "");
+  const isError = useState("isError", () => false);
   let timeout = null;
 
   function setError(msg, isErr) {

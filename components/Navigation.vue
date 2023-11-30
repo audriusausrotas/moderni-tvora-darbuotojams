@@ -5,7 +5,7 @@ const menuLinks = [{name: "Projektai", link: "/", iconPath: "/icons/projects.svg
 
 const route = useRoute()
 const useUser = useUserStore()
-const currentPath = ref(route.path.replace("/", ""))
+const currentPath = useState("currentPath", ()=> route.path.replace("/", ""))
 
 watch(
   () => route.path,
@@ -33,7 +33,7 @@ watch(
       <div v-for="link in menuLinks">
         <NuxtLink
           :to="link.link"
-          class="flex gap-2 px-4 py-2 rounded-md w-36 hover:bg-dark"
+          class="flex gap-2 px-4 py-2 rounded-md w-36 hover:bg-red-full hover:text-white"
         >
           <NuxtImg :src="link.iconPath" width="20" />
 
@@ -49,10 +49,12 @@ watch(
       </div>
       <NuxtLink
         to="/admin"
-        class="flex gap-2 px-4 py-2 rounded-md hover:bg-dark"
+        class="flex gap-2 px-4 py-2 rounded-md hover:bg-red-full hover:text-white hover:bg-dark"
       >
         <NuxtImg src="/icons/users.svg" width="20" />
-        <h3 class="capitalize">vartotojai</h3>
+        <h3 class="capitalize hover:bg-red-full hover:text-white">
+          vartotojai
+        </h3>
       </NuxtLink>
     </div>
   </nav>

@@ -3,7 +3,7 @@ defineProps(["message", "isError"]);
 </script>
 
 <template>
-  <div :class="['capitalize', isError ? 'text-red-500' : 'text-green-500']">
+  <div :class="['capitalize', isError ? 'text-red-full' : 'text-green-500']">
     {{ message }}
   </div>
 </template>
