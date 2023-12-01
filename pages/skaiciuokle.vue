@@ -1,6 +1,22 @@
-<script setup lang="js"></script>
+<script setup lang="js">
+import {useProjectStore} from "~/store/project"
+
+const useProject = useProjectStore()
+
+const createFenceHandler = ()=>{
+useProject.addFence()
+}
+</script>
 
 <template>
-  <div></div>
+  <div class="flex flex-col gap-8">
+    <CalcClient />
+
+    <BaseButton name="Sukurti Tvorą" @click="createFenceHandler" />
+
+    <div v-for="(fence, index) in useProject.fences" :key="fence.id">
+      <CalcFence :fence="fence" :index="index" />
+    </div>
+  </div>
 </template>
 <style scoped></style>

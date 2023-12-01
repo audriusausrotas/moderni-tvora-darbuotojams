@@ -60,7 +60,7 @@ function logoutHandler(){
 
         <div
           v-if="isOpen"
-          class="absolute left-0 flex flex-col bg-white border rounded-md top-14"
+          class="absolute left-0 flex flex-col overflow-hidden bg-white border rounded-md top-14"
         >
           <NuxtLink
             to="/profilis"

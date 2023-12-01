@@ -66,7 +66,7 @@ const saveHandler = async () => {
       </div>
       <BaseInput
         :name="url"
-        @update:name="(v) => (url = v)"
+        @onChange="(v) => (url = v)"
         placeholder="Nuotraukos nuoroda"
         width="full"
       >
@@ -78,14 +78,14 @@ const saveHandler = async () => {
       <BaseInput
         :name="newPassword"
         type="password"
-        @update:name="(v) => (newPassword = v)"
+        @onChange="(v) => (newPassword = v)"
         placeholder="Naujas slaptažodis"
         label="Naujas Slaptažodis"
       />
       <BaseInput
         :name="password"
         type="password"
-        @update:name="(v) => (password = v)"
+        @onChange="(v) => (password = v)"
         placeholder="Pakartoti slaptažodį"
         label="Pakartoti slaptažodį"
       />

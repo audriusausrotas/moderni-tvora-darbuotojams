@@ -63,6 +63,7 @@ const registerHandler = async () => {
   retypePassword.value = "";
   username.value = "";
 };
+console.log(useUser.user)
 </script>
 
 <template>
@@ -74,28 +75,28 @@ const registerHandler = async () => {
       <BaseInput
         v-if="!login"
         :name="username"
-        @update:name="(v) => (username = v)"
+        @onChange="(v) => (username = v)"
         placeholder="Vardas"
         label="Vartotojo vardas"
       />
 
       <BaseInput
         :name="email"
-        @update:name="(v) => (email = v)"
+        @onChange="(v) => (email = v)"
         placeholder="pavyzdys@gmail.com"
         label="Elektroninis paštas"
       />
 
       <BaseInput
         :name="password"
-        @update:name="(v) => (password = v)"
+        @onChange="(v) => (password = v)"
         placeholder="Slaptažodis"
         label="Slaptažodis"
         type="password"
       />
       <BaseInput
         :name="retypePassword"
-        @update:name="(v) => (retypePassword = v)"
+        @onChange="(v) => (retypePassword = v)"
         v-if="!login"
         placeholder="Slaptažodis"
         label="Slaptažodio patvirtinimas"

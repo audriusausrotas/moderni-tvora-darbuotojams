@@ -58,17 +58,17 @@ const deleteHandler= (id)=>{
       <p class="flex-[4]">vartotojo vardas</p>
       <p class="flex-[4]">paskyros statusas</p>
       <p class="flex-[6]">el. paštas</p>
-      <p class="flex-[4]">paskyros tipas</p>
+      <p class="flex-[3]">paskyros tipas</p>
       <div class="flex-1"></div>
     </div>
 
     <div
       v-for="(user, index) in useUser.users"
       :key="user._id"
-      class="flex py-4 capitalize border-b"
+      class="flex py-2 capitalize border-b"
     >
       <div class="flex-1">{{ index + 1 }}</div>
-      <p class="flex-[4]">{{ user.username }}</p>
+      <p class="flex-[4] flex items-center">{{ user.username }}</p>
       <div class="flex-[4]">
         <BaseSelectField
           :id="user._id"
@@ -78,7 +78,7 @@ const deleteHandler= (id)=>{
           @onChange="userChangesHandler(user._id, 'verify')"
         />
       </div>
-      <div class="flex-[6]">{{ user.email }}</div>
+      <div class="flex-[6] flex items-center">{{ user.email }}</div>
 
       <BaseSelectField
         :id="user._id"

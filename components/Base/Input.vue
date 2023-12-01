@@ -1,9 +1,11 @@
 <script setup lang="js">
-defineProps(["placeholder", "label", "type", "name", "width"]);
+const {placeholder, label, type, name, width} = defineProps(["placeholder", "label", "type", "name", "width"]);
 
-const emit = defineEmits();
+const emit = defineEmits(["onChange"]);
 
-const emitUpdate = (value) => emit("update:name", value);
+const emitUpdate = (value) => {
+  emit("onChange", value)
+  };
 </script>
 "
 
@@ -13,7 +15,7 @@ const emitUpdate = (value) => emit("update:name", value);
 
     <div
       class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-gray-ultra-light border-dark-ultra-light"
-      :class="width ? 'w-' + width : 'w-60'"
+      :class="width ? `w-${width}` : 'w-60'"
     >
       <slot />
       <input
