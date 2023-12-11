@@ -1,6 +1,5 @@
 <script setup lang="js">
 const {placeholder, label, type, name, width} = defineProps(["placeholder", "label", "type", "name", "width"]);
-
 const emit = defineEmits(["onChange"]);
 
 const emitUpdate = (value) => {
@@ -24,7 +23,7 @@ const emitUpdate = (value) => {
         :id="label"
         :type="type"
         @input="emitUpdate($event.target.value)"
-        class="w-full h-full outline-none bg-inherit"
+        class="w-full h-full py-1 border-0 outline-none active:outline-none bg-inherit active:border-0"
       />
     </div>
   </div>

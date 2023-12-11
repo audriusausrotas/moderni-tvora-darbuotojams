@@ -10,9 +10,10 @@ useProject.addFence()
 
 <template>
   <div class="flex flex-col gap-8">
-    <CalcClient />
-
-    <BaseButton name="Sukurti Tvorą" @click="createFenceHandler" />
+    <div class="flex flex-col gap-8 pb-8 border-b">
+      <CalcClient />
+      <BaseButton name="Sukurti Tvorą" @click="createFenceHandler" />
+    </div>
 
     <div v-for="(fence, index) in useProject.fences" :key="fence.id">
       <CalcFence :fence="fence" :index="index" />

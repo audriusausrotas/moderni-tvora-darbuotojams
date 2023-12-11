@@ -3,11 +3,6 @@ import {useProjectStore} from "~/store/project"
 
 const useProject = useProjectStore()
 const open = useState("clientOpen", ()=> true)
-
-const updateFields = (value, type)=> {
-  useProject.updateClient({value, type})
-
-}
 </script>
 
 <template>
@@ -19,7 +14,7 @@ const updateFields = (value, type)=> {
         label="Klientas"
         width="80"
         :name="useProject.client.username"
-        @onChange="(value) => updateFields(value, 'username')"
+        @onChange="(value) => useProject.updateClientUsername(value)"
       />
       <BaseInput
         placeholder="Telefono Numeris"
@@ -27,14 +22,14 @@ const updateFields = (value, type)=> {
         type="number"
         width="80"
         :name="useProject.client.phone"
-        @onChange="(value) => updateFields(value, 'phone')"
+        @onChange="(value) => useProject.updateClientPhone(value)"
       />
       <BaseInput
         placeholder="Adresas"
         label="Adresas"
         width="80"
         :name="useProject.client.address"
-        @onChange="(value) => updateFields(value, 'address')"
+        @onChange="(value) => useProject.updateClientAddress(value)"
       />
     </div>
     <div>
@@ -43,7 +38,7 @@ const updateFields = (value, type)=> {
         label="Elektroninis Paštas"
         width="80"
         :name="useProject.client.email"
-        @onChange="(value) => updateFields(value, 'email')"
+        @onChange="(value) => useProject.updateClientEmail(value)"
       />
     </div>
   </div>

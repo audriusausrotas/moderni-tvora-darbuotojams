@@ -14,13 +14,13 @@ const selectedValue = ref(defaultValue);
 
 const changeHandler = (value) => {
   selectedValue.value = value;
-  emit("onChange", selectedValue.value);
+  emit("onChange", value);
   isOpen.value = false;
 };
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 capitalize">
+  <div class="flex flex-col gap-2 capitalize select-none">
     <label :for="label" class="pl-2 text-sm">{{ label }}</label>
     <div class="relative selct-none" :class="width ? `w-${width}` : 'w-48'">
       <div
