@@ -37,8 +37,9 @@ const useProject= useProjectStore()
       <BaseInput
         width="20"
         class="m-auto"
+        placeholder="Ilgis"
         type="number"
-        :name="useProject.fences[index].measures[measureIndex].length"
+        :name="measure.length"
         @onChange="
           (value) =>
             useProject.updateMeasureLength({ index, value, measureIndex })
@@ -48,8 +49,9 @@ const useProject= useProjectStore()
       <BaseInput
         width="20"
         class="m-auto"
+        placeholder="Aukštis"
         type="number"
-        :name="useProject.fences[index].measures[measureIndex].height"
+        :name="measure.height"
         @onChange="
           (value) =>
             useProject.updateMeasureHeight({ index, value, measureIndex })
@@ -59,8 +61,9 @@ const useProject= useProjectStore()
       <BaseInput
         width="20"
         class="m-auto"
+        placeholder="Tarpas Tarp Elementų"
         type="number"
-        :name="useProject.fences[index].measures[measureIndex].space"
+        :name="measure.space"
         @onChange="
           (value) =>
             useProject.updateMeasureSpace({ index, value, measureIndex })

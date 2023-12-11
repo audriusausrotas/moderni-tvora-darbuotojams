@@ -85,6 +85,7 @@ export const useProjectStore = defineStore("project", {
       }
     },
     updateMeasureLength: (state) => (data) => {
+      console.log(data.measureIndex);
       state.fences[data.index].measures[data.measureIndex].length = data.value;
     },
     updateMeasureHeight: (state) => (data) => {
