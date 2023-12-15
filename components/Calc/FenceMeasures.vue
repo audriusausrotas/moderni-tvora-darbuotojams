@@ -8,6 +8,39 @@ const canBeDouble = [ "Alba", "Dija", "Sigma","Astra", "Polo","EVA", "EVA3",  "E
 const isDouble = useState('isDouble', ()=>canBeDouble.includes(useProject.fences[index].type))
 
 const open = useState("open", ()=> false)
+const totalLength = useState("totalLength", ()=> "")
+
+const cancelHandler = ()=>{
+  open.value = false;
+  totalLength.value = ""
+}
+
+const calculateLengthHandler = ()=>{
+
+  if (totalLength.value.trim().length > 0) {
+    const measures = +totalLength.value / 250
+    const  modula = +totalLength.value % 250
+    const  totalMeasures = []
+
+  for (let i = 0; i < measures; i++) {
+   totalMeasures.push(250)
+  }
+  totalMeasures.push(modula)
+
+  while( 200 < modula < 250){
+
+  }
+
+  totalMeasures.forEach(item => {
+    useProject.addMeasure(index)
+  useProject.updateMeasureLength({ index, value:item, measureIndex: useProject.fences[index].measures.length-1 })
+});
+
+open.value = false
+totalLength.value = ""
+
+  }
+}
 
 watch(() => useProject.fences[index].type, (newType) => {
   isDouble.value = canBeDouble.includes(newType);
@@ -151,8 +184,26 @@ watch(() => useProject.fences[index].type, (newType) => {
       </div>
     </div>
   </div>
-  <Teleport to="body">
-    <div class="absolute top-0 left-0 w-screen h-sreen bg-slate-100">asdf</div>
+  <Teleport to="body" v-if="open">
+    <div
+      class="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-opacity-80 bg-gray-ultra-light"
+    >
+      <div
+        class="flex flex-col items-center gap-8 p-16 bg-white rounded-md shadow-md"
+      >
+        <BaseInput
+          width="w-96"
+          placeholder="Bendras Ilgis"
+          type="number"
+          :name="totalLength"
+          @onChange="(value) => (totalLength = value)"
+        />
+        <div class="flex gap-4">
+          <BaseButton name="Skaičiuoti" @click="calculateLengthHandler" />
+          <BaseButton name="Atšaukti" @click="cancelHandler" />
+        </div>
+      </div>
+    </div>
   </Teleport>
 </template>
 <style scoped>
