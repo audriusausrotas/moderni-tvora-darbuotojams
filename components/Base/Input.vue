@@ -14,7 +14,7 @@ const emitUpdate = (value) => {
 
     <div
       class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-gray-ultra-light border-dark-ultra-light"
-      :class="width ? `w-${width}` : 'w-60'"
+      :class="width ? width : 'w-60'"
     >
       <slot />
       <input
@@ -23,7 +23,7 @@ const emitUpdate = (value) => {
         :id="label"
         :type="type"
         @input="emitUpdate($event.target.value)"
-        class="w-full h-full py-1 border-0 outline-none active:outline-none bg-inherit active:border-0"
+        class="w-full h-full border-0 outline-none active:outline-none bg-inherit active:border-0"
       />
     </div>
   </div>

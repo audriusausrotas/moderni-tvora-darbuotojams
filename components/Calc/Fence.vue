@@ -13,7 +13,7 @@ useProject.deleteFence(fence.id)
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-8 pt-8 border-t-2 border-red-full">
     <div class="flex gap-8">
       <CalcTitle
         :open="open"

@@ -12,7 +12,7 @@ const open = useState("clientOpen", ()=> true)
       <BaseInput
         placeholder="Klientas"
         label="Klientas"
-        width="80"
+        width="w-80"
         :name="useProject.client.username"
         @onChange="(value) => useProject.updateClientUsername(value)"
       />
@@ -20,14 +20,14 @@ const open = useState("clientOpen", ()=> true)
         placeholder="Telefono Numeris"
         label="Telefono Numeris"
         type="number"
-        width="80"
+        width="w-80"
         :name="useProject.client.phone"
         @onChange="(value) => useProject.updateClientPhone(value)"
       />
       <BaseInput
         placeholder="Adresas"
         label="Adresas"
-        width="80"
+        width="w-80"
         :name="useProject.client.address"
         @onChange="(value) => useProject.updateClientAddress(value)"
       />
@@ -36,7 +36,7 @@ const open = useState("clientOpen", ()=> true)
       <BaseInput
         placeholder="Elektroninis Paštas"
         label="Elektroninis Paštas"
-        width="80"
+        width="w-80"
         :name="useProject.client.email"
         @onChange="(value) => useProject.updateClientEmail(value)"
       />

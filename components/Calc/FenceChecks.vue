@@ -7,7 +7,17 @@ const useProject = useProjectStore();
 </script>
 
 <template>
-  <div class="flex justify-around">
+  <div class="flex justify-between">
+    <BaseInput
+      placeholder="Tarpas Tarp Elementų"
+      type="number"
+      label="tarpas tarp elementų"
+      :name="useProject.fences[index].space"
+      @onChange="
+        (value) => useProject.updateMeasureSpace({ index, value, measureIndex })
+      "
+    />
+
     <BaseCheckField
       label="montavimas"
       name="montavimas"
