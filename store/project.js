@@ -42,6 +42,8 @@ export const useProjectStore = defineStore("project", {
         stulpai: true,
         tikMontavimas: false,
         space: "",
+        totalLength: 0,
+        totalSQ: 0,
         measures: [{...initialMeasure}],
       });
     },
@@ -154,6 +156,15 @@ export const useProjectStore = defineStore("project", {
       state.fences[data.index].measures[data.measureIndex].laiptas.value =
         data.value;
     },
+    updateTotalLength: (state) => (data) => {
+      state.fences[data.index].totalLength =
+        data.value;
+    },
+    updateTotalSQ: (state) => (data) => {
+      state.fences[data.index].totalSQ =
+        data.value;
+    },
+    
 
     copyLast: (state) => (index) => {
       const elementIndex = state.fences[index].measures.length - 1;

@@ -9,9 +9,6 @@ const isDouble = useState('isDouble', () => canBeDouble.includes(useProject.fenc
 
 const open = useState("open", () => false);
 const totalLength = useState("totalLength", () => "");
-const totalMeters = useState("totalMeters", () => 0);
-const totalSquareMeters = useState("totalSquareMeters", () => 0);
-
 
 const cancelHandler = () => {
   open.value = false;
@@ -64,8 +61,10 @@ watch(() => useProject.fences[index].measures, (newMeasures, oldMeasures) => {
     totalM += +item.length;
     totalSQ += item.length * item.height;
   });
-  totalMeters.value = totalM / 100;
-  totalSquareMeters.value = totalSQ / 10000;
+
+  useProject.updateTotalLength({ index, value: totalM / 100 });
+  useProject.updateTotalSQ({ index, value: totalSQ / 10000 });
+
 }, { deep: true });
 
 watch(() => useProject.fences[index].type, (newType) => {
@@ -89,9 +88,9 @@ watch(() => useProject.fences[index].type, (newType) => {
     </div>
   </div>
   <div class="flex flex-wrap justify-center gap-4">
-    <p>Bendras Ilgis: {{ totalMeters }} m</p>
+    <p>Bendras Ilgis: {{ useProject.fences[index].totalLength }} m</p>
     <p class="flex">
-      Kvadratiniai metrai: {{ totalSquareMeters }} m<span class="text-[10px] font-semibold">2</span>
+      Kvadratiniai metrai: {{ useProject.fences[index].totalSQ }} m<span class="text-[10px] font-semibold">2</span>
     </p>
   </div>
 
