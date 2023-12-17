@@ -41,6 +41,7 @@ const calculateLengthHandler = () => {
     }
   };
   checkCalculations();
+
   totalMeasures.forEach(item => {
     const lastElement = useProject.fences[index].measures[useProject.fences[index].measures.length - 1];
     if (lastElement.length !== null && lastElement.length !== "" || lastElement.kampas.exist || lastElement.laiptas.exist) {
