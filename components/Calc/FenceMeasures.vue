@@ -87,6 +87,8 @@ watch(() => useProject.fences[index].type, (newType) => {
       <BaseButton name="įterpti laiptą" @click="useProject.addLaiptas(index)" />
       <BaseButton name="išvalyti visus" @click="useProject.deleteMeasures(index)" />
     </div>
+
+
   </div>
   <div class="flex flex-wrap justify-center gap-4">
     <p>Bendras Ilgis: {{ useProject.fences[index].totalLength }} m</p>
