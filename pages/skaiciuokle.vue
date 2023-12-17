@@ -1,16 +1,16 @@
 <script setup lang="js">
-import {useProjectStore} from "~/store/project"
+import { useProjectStore } from "~/store/project";
 
-const useProject = useProjectStore()
+const useProject = useProjectStore();
 
-const createFenceHandler = ()=>{
-useProject.addFence()
-}
+const createFenceHandler = () => {
+  useProject.addFence();
+};
 </script>
 
 <template>
   <div class="flex flex-col gap-12">
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col items-center gap-8 xl:items-start">
       <CalcClient />
       <BaseButton name="Sukurti Tvorą" @click="createFenceHandler" />
     </div>
