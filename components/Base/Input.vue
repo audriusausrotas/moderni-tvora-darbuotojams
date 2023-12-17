@@ -1,12 +1,25 @@
 <script setup lang="js">
-const {placeholder, label, type, name, width} = defineProps(["placeholder", "label", "type", "name", "width"]);
-const emit = defineEmits(["onChange"]);
+const { placeholder, label, type, name, width, active } = defineProps(["placeholder", "label", "type", "name", "width", "active"]);
+const emit = defineEmits(["onChange", "EnterPressed"]);
 
 const emitUpdate = (value) => {
-  emit("onChange", value)
-  };
+  emit("onChange", value);
+};
+
+const inputRef = ref(null);
+
+const handleEnterKey = () => {
+  emit("EnterPressed");
+};
+
+onMounted(() => {
+  if (active && inputRef.value) {
+    inputRef.value.focus();
+  }
+});
+
 </script>
-"
+
 
 <template>
   <div class="flex flex-col gap-2 capitalize">
@@ -14,17 +27,11 @@ const emitUpdate = (value) => {
 
     <div
       class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-gray-ultra-light border-dark-ultra-light"
-      :class="width ? width : 'w-60'"
-    >
+      :class="width ? width : 'w-60'">
       <slot />
-      <input
-        :value="name"
-        :placeholder="placeholder"
-        :id="label"
-        :type="type"
-        @input="emitUpdate($event.target.value)"
-        class="w-full h-full border-0 outline-none active:outline-none bg-inherit active:border-0"
-      />
+      <input :value="name" :placeholder="placeholder" :id="label" :type="type" @input="emitUpdate($event.target.value)"
+        @keyup.enter="handleEnterKey" ref="inputRef"
+        class="w-full h-full border-0 outline-none active:outline-none bg-inherit active:border-0" />
     </div>
   </div>
 </template>

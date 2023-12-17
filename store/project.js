@@ -14,12 +14,12 @@ const initialMeasure = {
   gates: false,
   twoSided: false,
   kampas: {
-    kampas: false,
-    laipsnis: "90",
+    exist: false,
+    value: "",
   },
   laiptas: {
-    laiptas: false,
-    aukstis: "",
+    exist: false,
+    value: "",
   },
 };
 
@@ -42,61 +42,33 @@ export const useProjectStore = defineStore("project", {
         stulpai: true,
         tikMontavimas: false,
         space: "",
-        measures: [initialMeasure],
+        measures: [{...initialMeasure}],
       });
     },
 
     addMeasure(index) {
-      this.fences[index].measures.push({
-        length: null,
-        height: null,
-        space: null,
-        gates: false,
-        twoSided: false,
-        kampas: {
-          exist: false,
-          value: "",
-        },
-        laiptas: {
-          exist: false,
-          value: "",
-        },
-      });
+      this.fences[index].measures.push({...initialMeasure});
     },
 
     addKampas(index) {
-      this.fences[index].measures.push({
-        length: null,
-        height: null,
-        space: null,
-        gates: false,
-        twoSided: false,
-        kampas: {
-          exist: true,
-          laipsnis: "",
-        },
-        laiptas: {
-          exist: false,
-          aukstis: "",
-        },
-      });
+       const kampas = {
+    ...initialMeasure,
+    kampas: {
+      exist: true,
+      value: "",
+    },
+  }; 
+      this.fences[index].measures.push(kampas);
     },
     addLaiptas(index) {
-      this.fences[index].measures.push({
-        length: null,
-        height: null,
-        space: null,
-        gates: false,
-        twoSided: false,
-        kampas: {
-          exist: false,
-          value: "",
-        },
-        laiptas: {
-          exist: true,
-          value: "",
-        },
-      });
+        const laiptas = {
+    ...initialMeasure,
+    laiptas: {
+      exist: true,
+      value: "",
+    },
+  }; 
+      this.fences[index].measures.push(laiptas);
     },
   },
 
@@ -201,7 +173,7 @@ export const useProjectStore = defineStore("project", {
     },
 
     deleteMeasures: (state) => (index) => {
-      state.fences[index].measures = [initialMeasure];
+      state.fences[index].measures = [{...initialMeasure}];
     },
 
     deleteFence: (state) => (data) => {
