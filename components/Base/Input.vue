@@ -23,7 +23,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-2 capitalize">
-    <label :for="label" class="pl-2 text-sm">{{ label }}</label>
+    <label v-if="label" :for="label" class="pl-2 text-sm">{{ label }}</label>
 
     <div
       class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-gray-ultra-light border-dark-ultra-light"

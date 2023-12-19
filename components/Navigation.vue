@@ -5,14 +5,26 @@ const menuLinks = [{ name: "Projektai", link: "/", iconPath: "/icons/projects.sv
 
 const route = useRoute();
 const useUser = useUserStore();
-const currentPath = useState("currentPath", () => route.path.replace("/", ""));
+const currentPath = useState("currentPath", () => "");
+
+function routeHandler(newPath) {
+  if (newPath.includes("samata")) currentPath.value = "Sąmata";
+  else if (newPath.includes("skaiciuokle")) currentPath.value = "Skaičiuoklė";
+  else currentPath.value = newPath.replace("/", "");
+};
+
+routeHandler(route.path);
 
 watch(
   () => route.path,
   (newPath) => {
-    currentPath.value = newPath.replace("/", "");
-  }
-);
+    routeHandler(newPath);
+  });
+
+
+
+
+
 </script>
 
 <template>
@@ -25,15 +37,14 @@ watch(
     </div>
 
     <div>
-
-
       <div class="flex items-center gap-2">
         <NuxtImg src="/icons/arrowDown.svg" width="8" />
         <h4 class="text-sm capitalize">panelė</h4>
       </div>
 
       <div v-for="link in menuLinks">
-        <NuxtLink :to="link.link" class="flex gap-2 px-4 py-2 rounded-md w-36 hover:bg-red-full hover:text-white">
+        <NuxtLink :to="link.link" class="flex gap-2 px-4 py-2 rounded-md w-36 hover:bg-red-full hover:text-white"
+          :class="currentPath === link.name ? 'bg-red-full text-white' : ''">
           <NuxtImg :src="link.iconPath" width="20" />
           {{ link.name }}
         </NuxtLink>
