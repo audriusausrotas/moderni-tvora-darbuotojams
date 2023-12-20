@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 
 export const useProductsStore = defineStore("products", {
   state: () => ({
-    products: reactive([]),
+    products: [],
   }),
 
   actions: {
-    async fetchProducts() {
+    async fetchProductsFromWebsite() {
       console.log("fecina produktus");
       try {
         let currentPage = 1;
@@ -22,17 +22,30 @@ export const useProductsStore = defineStore("products", {
           currentPage++;
         }
         this.products = [...allProducts];
-/////////////////////////////////////////////////
- 
-      await useFetch("/api/product", {
-        method: "post",
-        body: {asdf: [...allProducts]}
-      });
 
-/////////////////////////////////////////////////
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     },
+
+    async fetchProducts(){
+      const {data} = await $fetch("/api/products");
+      this.products = [...data]
+    },
   },
+
+  getters: {
+    updateProduct: (store)=> (data)=>{
+      store.products = store.products.map(item=> {
+       if (item._id === data._id) return data
+       else return item
+      })
+    },
+
+    deleteProduct: (store)=> (_id)=>{
+      store.products = store.products.filter((item) =>
+      item._id !== _id
+      )
+    }
+  }
 });

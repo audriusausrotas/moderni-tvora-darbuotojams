@@ -1,5 +1,5 @@
 <script setup lang="js">
-const { placeholder, label, type, name, width, active, variant } = defineProps(["placeholder", "label", "type", "name", "width", "active", "variant"]);
+const { placeholder, label, type, name, width, active, variant, disable } = defineProps(["placeholder", "label", "type", "name", "width", "active", "variant", "disable"]);
 const emit = defineEmits(["onChange", "EnterPressed"]);
 
 const emitUpdate = (value) => {
@@ -29,8 +29,8 @@ onMounted(() => {
       class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm border-dark-light"
       :class="width ? width : 'w-60', variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light'">
       <slot />
-      <input :value="name" :placeholder="placeholder" :id="label" :type="type" @input="emitUpdate($event.target.value)"
-        @keyup.enter="handleEnterKey" ref="inputRef"
+      <input :value="name" :placeholder="placeholder" :id="label" :type="type" :disabled="disable || false"
+        @input="emitUpdate($event.target.value)" @keyup.enter="handleEnterKey" ref="inputRef"
         class="w-full h-full border-0 outline-none active:outline-none bg-inherit active:border-0" />
     </div>
   </div>

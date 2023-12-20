@@ -37,7 +37,6 @@ export const useProjectStore = defineStore("project", {
   state: () => ({
     client: clientInitialValue,
     fences: [],
-    results: [],
     fenceTypes,
     fenceColors,
     fenceMaterials,
@@ -88,8 +87,6 @@ export const useProjectStore = defineStore("project", {
   }; 
       this.fences[index].measures.push(laiptas);
     },
-
-    generateResults(){}
   },
 
   getters: {

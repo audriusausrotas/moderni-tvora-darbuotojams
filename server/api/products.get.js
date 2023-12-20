@@ -5,6 +5,6 @@ export default defineEventHandler(async () => {
 
   if (!data)
     return { success: false, data: null, message: "Produktai nerasti" };
-
-  return { success: true, data, message: "" };
+  
+  return { success: true, data, message: "done" };
 });

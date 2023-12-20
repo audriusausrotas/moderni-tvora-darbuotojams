@@ -6,7 +6,7 @@ export const productSchema = defineMongooseModel(
     name: String,
     price: String,
     cost: {
-      type: Boolean,
+      type: String,
       required: false,
       default: "",
     },

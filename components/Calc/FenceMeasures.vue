@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup >
 import { useProjectStore } from '~/store/project';
 const { index } = defineProps(["index"]);
 const useProject = useProjectStore();
