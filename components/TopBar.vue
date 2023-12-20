@@ -11,11 +11,11 @@ const useProducts = useProductsStore();
 const isOpen = ref(false);
 const initials = computed(() => useUser?.user?.username.slice(0, 2));
 
-// watchEffect(() => {
-//   if (useUser.user && !useProducts.products.length > 0) {
-//     useProducts.fetchProducts();
-//   }
-// });
+watchEffect(() => {
+  if (useUser.user && !useProducts.products.length > 0) {
+    useProducts.fetchProducts();
+  }
+});
 
 function logoutHandler() {
   useUser.logout();

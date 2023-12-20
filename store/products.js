@@ -22,6 +22,14 @@ export const useProductsStore = defineStore("products", {
           currentPage++;
         }
         this.products = [...allProducts];
+/////////////////////////////////////////////////
+ 
+      await useFetch("/api/product", {
+        method: "post",
+        body: {asdf: [...allProducts]}
+      });
+
+/////////////////////////////////////////////////
       } catch (error) {
         console.error("Error fetching products:", error);
       }

@@ -4,29 +4,28 @@ import { useProductsStore } from "~/store/products";
 const useProducts = useProductsStore();
 const products = useState("products", () => useProducts.products);
 
+
 watch(
   () => useProducts.products,
   (newProducts) => {
     products.value = newProducts;
   }
 );
+
+
+
+
 </script>
 <template>
   <div class="flex flex-col gap-4">
-    <div
-      class="flex px-8 py-4 text-lg font-semibold capitalize pr-36 bg-gray-ultra-light rounded-t-3xl"
-    >
+    <div class="flex px-8 py-4 text-lg font-semibold capitalize pr-36 bg-gray-ultra-light rounded-t-3xl">
       <p class="w-10 text-center">nr</p>
       <p class="flex-[6] min-w-fit">produkto pavadinimas</p>
       <p class="flex-1 min-w-fit">kaina</p>
       <p class="flex-1 min-w-fit">savikaina</p>
       <p class="flex-[1] min-w-fit text-end">Veiksmai</p>
     </div>
-    <div
-      v-for="(product, index) in products"
-      :key="index"
-      class="flex px-8 border-b"
-    >
+    <div v-for="(product, index) in products" :key="index" class="flex px-8 border-b">
       <p class="w-10 text-center">{{ index + 1 }}</p>
       <h2 class="flex-[3]">{{ product.name }}</h2>
 

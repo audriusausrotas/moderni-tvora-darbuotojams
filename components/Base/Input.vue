@@ -1,5 +1,5 @@
 <script setup lang="js">
-const { placeholder, label, type, name, width, active } = defineProps(["placeholder", "label", "type", "name", "width", "active"]);
+const { placeholder, label, type, name, width, active, variant } = defineProps(["placeholder", "label", "type", "name", "width", "active", "variant"]);
 const emit = defineEmits(["onChange", "EnterPressed"]);
 
 const emitUpdate = (value) => {
@@ -26,8 +26,8 @@ onMounted(() => {
     <label v-if="label" :for="label" class="pl-2 text-sm">{{ label }}</label>
 
     <div
-      class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm bg-gray-ultra-light border-dark-ultra-light"
-      :class="width ? width : 'w-60'">
+      class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm border-dark-light"
+      :class="width ? width : 'w-60', variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light'">
       <slot />
       <input :value="name" :placeholder="placeholder" :id="label" :type="type" @input="emitUpdate($event.target.value)"
         @keyup.enter="handleEnterKey" ref="inputRef"

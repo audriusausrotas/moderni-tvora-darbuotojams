@@ -3,7 +3,7 @@ import { useProjectStore } from '~/store/project';
 const { index } = defineProps(["index"]);
 const useProject = useProjectStore();
 
-const canBeDouble = ["Alba", "Dija", "Sigma", "Astra", "Polo", "EVA", "EVA3", "Estetic", "Emka",];
+const canBeDouble = useProject.verticals;
 const isDouble = useState('isDouble', () => canBeDouble.includes(useProject.fences[index].type));
 const open = useState("open", () => false);
 const totalLength = useState("totalLength", () => "");
@@ -69,7 +69,7 @@ watch(() => useProject.fences[index].measures, (newMeasures, oldMeasures) => {
 
 watch(() => useProject.fences[index].type, (newType) => {
   isDouble.value = canBeDouble.includes(newType);
-});
+}, { deep: true });
 
 </script>
 <template>
@@ -121,12 +121,12 @@ watch(() => useProject.fences[index].type, (newType) => {
       <div v-if="!measure.kampas.exist && !measure.laiptas.exist" class="grid items-center gap-2 custom-grid">
         <p class="m-auto">{{ measureIndex + 1 }}</p>
 
-        <BaseInput width="w-24" placeholder="Ilgis" type="number" :name="measure.length"
+        <BaseInput width="w-24" placeholder="Ilgis" type="number" variant="light" :name="measure.length"
           @EnterPressed="useProject.addMeasure(index)" @onChange="(value) =>
             useProject.updateMeasureLength({ index, value, measureIndex })
             " :active="true" />
 
-        <BaseInput width="w-24" placeholder="Aukštis" type="number" :name="measure.height"
+        <BaseInput width="w-24" placeholder="Aukštis" type="number" variant="light" :name="measure.height"
           @EnterPressed="useProject.addMeasure(index)" @onChange="(value) =>
             useProject.updateMeasureHeight({ index, value, measureIndex })
             " />
