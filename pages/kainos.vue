@@ -5,17 +5,20 @@ const useProducts = useProductsStore();
 
 </script>
 <template>
-  <div class="flex flex-col ">
-    <div class="grid gap-2 p-4 font-semibold capitalize custom-grid bg-gray-ultra-light rounded-t-3xl">
-      <p>nr</p>
-      <p>pavadinimas</p>
-      <p>kaina</p>
-      <p>savikaina</p>
-      <p></p>
-    </div>
-    <div v-for="(product, index) in useProducts.products" :key="product._id"
-      class="grid items-center gap-2 p-4 border-b custom-grid">
-      <PriceElement :index="index" :product="product" />
+  <div class="flex flex-col gap-8">
+    <PriceNew />
+    <div class="flex flex-col ">
+      <div class="grid gap-2 p-4 font-semibold capitalize custom-grid bg-gray-ultra-light rounded-t-3xl">
+        <p>nr</p>
+        <p>pavadinimas</p>
+        <p>kaina</p>
+        <p>savikaina</p>
+        <p></p>
+      </div>
+      <div v-for="(product, index) in useProducts.products" :key="product._id"
+        class="grid items-center gap-2 p-4 border-b custom-grid">
+        <PriceElement :index="index" :product="product" />
+      </div>
     </div>
   </div>
 </template>

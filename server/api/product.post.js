@@ -11,10 +11,11 @@ export default defineEventHandler(async (event) => {
 
    const product = new productSchema({
      name ,
-     price,
-     cost: cost || "",
+     price: price || 0,
+     cost: cost || 0,
      image: image || "",
     });
+
   
     const data =  await product.save();
  

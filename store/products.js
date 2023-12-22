@@ -32,6 +32,10 @@ export const useProductsStore = defineStore("products", {
       const {data} = await $fetch("/api/products");
       this.products = [...data]
     },
+
+    newProduct(data){
+      this.products.push(data)
+    }
   },
 
   getters: {
