@@ -7,28 +7,27 @@ const useProducts = useProductsStore();
 <template>
   <div class="flex flex-col gap-8">
     <PriceNew />
-    <div class="flex flex-col ">
-      <div class="grid gap-2 p-4 font-semibold capitalize custom-grid bg-gray-ultra-light rounded-t-3xl">
-        <p>nr</p>
-        <p>pavadinimas</p>
-        <p>kaina</p>
-        <p>savikaina</p>
-        <p></p>
-      </div>
-      <div v-for="(product, index) in useProducts.products" :key="product._id"
-        class="grid items-center gap-2 p-4 border-b custom-grid">
-        <PriceElement :index="index" :product="product" />
-      </div>
+    <div class="overflow-auto">
+      <table class="w-full">
+        <thead class="overflow-hidden font-semibold capitalize bg-gray-ultra-light">
+          <tr>
+            <th class="w-8 p-3 rounded-tl-2xl">nr</th>
+            <th class="min-w-[500px]">pavadinimas</th>
+            <th class="w-24 p-3">kaina</th>
+            <th class="w-24 p-3">savikaina</th>
+            <th class="w-8 p-3"></th>
+            <th class="w-8 p-3 rounded-tr-2xl"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <tr v-for="(product, index) in useProducts.products" :key="product._id">
+            <PriceElement :index="index" :product="product" />
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 <style scoped>
-.custom-grid {
-  grid-template-columns: 30px auto 96px 96px 20px 20px;
-
-  @media (max-width: 600px) {
-    grid-template-columns: 50px 100px 100px;
-  }
-
-}
+.custom-grid {}
 </style>

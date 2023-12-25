@@ -53,10 +53,5 @@ const clearHandler = () => {
 <style scoped>
 .custom-grid {
     grid-template-columns: auto 96px 96px;
-
-    @media (max-width: 600px) {
-        grid-template-columns: 50px 100px 100px;
-    }
-
 }
 </style>

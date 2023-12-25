@@ -26,12 +26,12 @@ onMounted(() => {
     <label v-if="label" :for="label" class="pl-2 text-sm">{{ label }}</label>
 
     <div
-      class="flex items-center justify-center gap-3 px-4 py-2 overflow-hidden border rounded-lg shadow-sm border-dark-light"
+      class="flex items-center justify-center gap-3 px-4 py-2 overflow-auto border rounded-lg shadow-sm border-dark-light "
       :class="width ? width : 'w-60', variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light'">
       <slot />
       <input :value="name" :placeholder="placeholder" :id="label" :type="type" :disabled="disable || false"
         @input="emitUpdate($event.target.value)" @keyup.enter="handleEnterKey" ref="inputRef"
-        class="w-full h-full border-0 outline-none active:outline-none bg-inherit active:border-0" />
+        class="w-full h-full overflow-scroll border-0 outline-none active:outline-none bg-inherit active:border-0" />
     </div>
   </div>
 </template>
