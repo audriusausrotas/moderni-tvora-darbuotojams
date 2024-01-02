@@ -1,18 +1,45 @@
 <script setup>
-defineProps([])
+import { useResultsStore } from "~/store/results";
 
+defineProps([]);
+
+const useResults = useResultsStore();
+
+const deleteHandler = () => {
+    useResults.calculateResults();
+};
 </script>
  
 <template>
-    <p>1</p>
-    <BaseInput width="w-full" variant="light">Pavadinimas</BaseInput>
-    <BaseInput width="w-20" variant="light">100</BaseInput>
-    <BaseInput width="w-20" variant="light">1.50</BaseInput>
-    <BaseInfoField name="150" />
-    <BaseInfoField name="1" />
-    <BaseInfoField name="100" />
-    <BaseInfoField name="50" />
-    <BaseInfoField name="30" />
-    <NuxtImg src="/icons/delete.svg" width="20" />
+    <tr>
+        <td class="px-1 py-3">1</td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-full" variant="light" placeholder="Pavadinimas" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" variant="light" name="100" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" variant="light" name="1.5" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" name="150" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" name="1" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" name="100" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" name="50" />
+        </td>
+        <td class="px-1 py-3">
+            <BaseInput width="w-24" name="30" />
+        </td>
+        <td class="py-3">
+            <NuxtImg src="/icons/delete.svg" width="20" @click="deleteHandler" />
+        </td>
+    </tr>
 </template>
 <style scoped></style>

@@ -1,8 +1,4 @@
 <script setup>
-import { useProjectStore } from '~/store/project';
-
-const useProject = useProjectStore()
-
 </script>
 
 <template>

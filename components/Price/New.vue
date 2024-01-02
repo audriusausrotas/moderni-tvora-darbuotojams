@@ -39,8 +39,8 @@ const clearHandler = () => {
             <BaseButton name="išsaugoti" @click="saveHandler" />
             <BaseButton name="atšaukti" @click="clearHandler" />
         </div>
-        <div v-if="open" class="grid gap-2 custom-grid">
-            <BaseInput :name="newName" width="w-full" variant="light" label="Pavadinimas"
+        <div v-if="open" class="flex gap-2 ">
+            <BaseInput :name="newName" width="w-full" variant="light" class="flex-1" label="Pavadinimas"
                 @onChange="(v) => (newName = v)" />
             <BaseInput :name="newPrice" width="w-24" type="number" label="Kaina" variant="light"
                 @onChange="(v) => (newPrice = v)" />
@@ -50,8 +50,4 @@ const clearHandler = () => {
         </div>
     </div>
 </template>
-<style scoped>
-.custom-grid {
-    grid-template-columns: auto 96px 96px;
-}
-</style>
+<style scoped></style>

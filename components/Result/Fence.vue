@@ -6,30 +6,24 @@ const useResults = useResultsStore();
 </script>
  
 <template>
-    <div>
-        <div class="grid gap-3 p-4 font-semibold capitalize rounded-t-3xl custom-grid bg-gray-ultra-light">
-            <p>Nr</p>
-            <p>Pavadinimas</p>
-            <p>Kiekis</p>
-            <p>Kaina</p>
-            <p>viso</p>
-            <p>Savikaina</p>
-            <p>sav. viso</p>
-            <p>pelnas</p>
-            <p>marža</p>
-            <p></p>
-        </div>
-        <div class="grid items-center gap-3 p-4 border-b custom-grid">
+    <table class="w-full">
+        <thead class="overflow-hidden font-semibold capitalize bg-gray-ultra-light">
+            <tr>
+                <th class="w-8 p-3 rounded-tl-2xl">Nr</th>
+                <th class="min-w-[400px]">Pavadinimas</th>
+                <th class="w-24 p-3">Kiekis</th>
+                <th class="w-24 p-3">Kaina</th>
+                <th class="w-24 p-3">viso</th>
+                <th class="w-24 p-3">Savikaina</th>
+                <th class="w-24 p-3">s.viso</th>
+                <th class="w-24 p-3">pelnas</th>
+                <th class="w-24 p-3">marža</th>
+                <th class="w-8 p-3 rounded-tr-2xl"></th>
+            </tr>
+        </thead>
+        <tbody class="items-center border-b">
             <ResultFenceElement />
-        </div>
-    </div>
+        </tbody>
+    </table>
 </template>
-<style scoped>
-.custom-grid {
-    grid-template-columns: 30px auto 80px 80px 80px 80px 80px 80px 80px 20px;
-
-    @media (max-width: 600px) {
-        grid-template-columns: 50px 100px 100px;
-    }
-}
-</style>
+<style scoped></style>
