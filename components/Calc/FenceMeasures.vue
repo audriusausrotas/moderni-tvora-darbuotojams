@@ -43,12 +43,19 @@ const calculateLengthHandler = () => {
   checkCalculations();
 
   totalMeasures.forEach(item => {
-    const lastElement = useProject.fences[index].measures[useProject.fences[index].measures.length - 1];
+    let lastElement = useProject.fences[index].measures[useProject.fences[index].measures.length - 1];
+
+    if (!lastElement) {
+      useProject.addMeasure(index);
+      lastElement = 0;
+    };
+
     if (lastElement.length !== null && lastElement.length !== "" || lastElement.kampas.exist || lastElement.laiptas.exist) {
       useProject.addMeasure(index);
     }
     useProject.updateMeasureLength({ index, value: item, measureIndex: useProject.fences[index].measures.length - 1 });
   });
+
   open.value = false;
   totalLength.value = "";
 
