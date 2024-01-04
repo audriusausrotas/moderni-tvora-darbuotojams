@@ -1,5 +1,5 @@
-<script setup lang='js'>
-import { useProductsStore } from "~/store/products";
+<script setup lang="js">
+import  {useProductsStore}  from "~/store/products";
 
 const { product, index } = defineProps(["product", "index"]);
 const useProducts = useProductsStore();
@@ -39,32 +39,63 @@ const saveHandler = async () => {
     }
 };
 </script>
- 
-<template >
-    <td class="p-2">{{ index + 1 }}</td>
-    <td class="p-2">
-        <BaseInput :name="productName" width="w-auto" :disable="disable" :variant="disable ? '' : 'light'"
-            @onChange="(v) => (productName = v)" />
-    </td>
-    <td class="p-2">
-        <BaseInput :name="productPrice || 0" width="w-24" type="number" :disable="disable" :variant="disable ? '' : 'light'"
-            @onChange="(v) => (productPrice = v)" />
-    </td>
-    <td class="p-2">
-        <BaseInput :name="productCost || 0" width="w-24" type="number" :disable="disable" :variant="disable ? '' : 'light'"
-            @onChange="(v) => (productCost = v)" />
-    </td>
 
-    <td>
-        <NuxtImg v-if="disable" src="/icons/edit.svg" width="20" @click="editHandler"
-            class="w-full p-1 m-auto rounded-md hover:cursor-pointer hover:bg-green-100" />
-        <NuxtImg v-else src="/icons/checked.svg" width="20" @click="saveHandler"
-            class="w-full p-1 m-auto rounded-md hover:cursor-pointer hover:bg-green-100" />
-    </td>
-    <td>
-        <NuxtImg src="/icons/delete.svg" width="20" @click="deleteHandler"
-            class="w-full p-1 m-auto rounded-md hover:cursor-pointer hover:bg-red-ulta-light" />
-    </td>
+<template>
+  <td class="p-2">{{ index + 1 }}</td>
+  <td class="p-2">
+    <BaseInput
+      :name="productName"
+      width="w-auto"
+      :disable="disable"
+      :variant="disable ? '' : 'light'"
+      @onChange="(v) => (productName = v)"
+    />
+  </td>
+  <td class="p-2">
+    <BaseInput
+      :name="productPrice || 0"
+      width="w-24"
+      type="number"
+      :disable="disable"
+      :variant="disable ? '' : 'light'"
+      @onChange="(v) => (productPrice = v)"
+    />
+  </td>
+  <td class="p-2">
+    <BaseInput
+      :name="productCost || 0"
+      width="w-24"
+      type="number"
+      :disable="disable"
+      :variant="disable ? '' : 'light'"
+      @onChange="(v) => (productCost = v)"
+    />
+  </td>
+
+  <td>
+    <NuxtImg
+      v-if="disable"
+      src="/icons/edit.svg"
+      width="20"
+      @click="editHandler"
+      class="w-full p-1 m-auto rounded-md hover:cursor-pointer hover:bg-green-100"
+    />
+    <NuxtImg
+      v-else
+      src="/icons/checked.svg"
+      width="20"
+      @click="saveHandler"
+      class="w-full p-1 m-auto rounded-md hover:cursor-pointer hover:bg-green-100"
+    />
+  </td>
+  <td>
+    <NuxtImg
+      src="/icons/delete.svg"
+      width="20"
+      @click="deleteHandler"
+      class="w-full p-1 m-auto rounded-md hover:cursor-pointer hover:bg-red-ulta-light"
+    />
+  </td>
 </template>
 
 <style scoped></style>

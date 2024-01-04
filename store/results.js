@@ -3,18 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useProjectStore } from "./project";
 import { useProductsStore } from "./products";
 
-const initialResult = {
-  id: "",
-  name: "",
-  quantity: "",
-  price: "",
-  totalPrice: "",
-  cost: "",
-  totalCost: "",
-  profit: "",
-  margin: "",
-};
-
 export const useResultsStore = defineStore("results", {
   state: () => ({
     results: [],
@@ -26,19 +14,18 @@ export const useResultsStore = defineStore("results", {
       const products = useProductsStore().products;
 
       this.results = [];
-
       const fenceTypes = [];
 
       useProject.fences.forEach((item) => {
+        let exist = false;
         const initialData = {
           name: item.type,
           color: item.color,
           length: item.totalLength,
           sq: item.totalSQ,
           material: item.material,
+          space: item.space,
         };
-
-        let exist = false;
 
         fenceTypes.forEach((fenceItem) => {
           if (
@@ -51,31 +38,37 @@ export const useResultsStore = defineStore("results", {
             exist = true;
           }
         });
-        console.log(fenceTypes);
-        console.log(this.results);
-
         if (!exist) {
           fenceTypes.push(initialData);
         }
+      });
 
-        fenceTypes.forEach((item) => {
-          const product = products.find((productItem) =>
-            productItem.name.includes(item.name)
-          );
+      fenceTypes.forEach((item) => {
+        const product = products.find((productItem) =>
+          productItem.name.includes(item.name)
+        );
 
-          const resultData = {
-            id: uuidv4(),
-            name: item.name,
-            quantity: item.sq,
-            price: product.price || 0,
-            totalPrice: "",
-            cost: product.cost || 0,
-            totalCost: "",
-            profit: "",
-            margin: "",
-          };
-          this.results.push(resultData);
-        });
+        const totalPrice = product.price * item.sq;
+        const totalCost = product.cost * item.sq;
+        const profit = totalPrice - totalCost;
+        const margin = (
+          Math.round((profit / totalPrice) * 10000) / 100
+        ).toFixed(2);
+
+        const resultData = {
+          id: uuidv4(),
+          name: item.name,
+          quantity: item.sq,
+          color: item.color,
+          space: item.space || 0,
+          price: product.price || 0,
+          totalPrice: totalPrice,
+          cost: product.cost || 0,
+          totalCost: totalCost,
+          profit: profit,
+          margin: margin,
+        };
+        this.results.push(resultData);
       });
     },
 

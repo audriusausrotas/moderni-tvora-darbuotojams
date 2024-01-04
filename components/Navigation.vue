@@ -1,5 +1,5 @@
 <script setup lang="js">
-import { useUserStore } from "~/store/user";
+import  {useUserStore}  from "~/store/user";
 
 const menuLinks = [{ name: "Projektai", link: "/", iconPath: "/icons/projects.svg" }, { name: "Skaičiuoklė", link: "/skaiciuokle", iconPath: "/icons/calculations.svg" }, { name: "Sąmata", link: "/samata", iconPath: "/icons/projects.svg" }, { name: "Kainos", link: "/kainos", iconPath: "/icons/prices.svg" },];
 

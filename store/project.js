@@ -1,14 +1,59 @@
 import { v4 as uuidv4 } from "uuid";
 
-const fenceColors = ["7016", "7024", "8019", "8017", "6020", "6005", "9005", "3009", "Kita"];
+const fenceColors = [
+  "7016",
+  "7024",
+  "8019",
+  "8017",
+  "6020",
+  "6005",
+  "9005",
+  "3009",
+  "Kita",
+];
 
-const fenceTypes = ["Daimond 60/90", "Daimond 40/105", "Alba", "Plank", "Žaliuzi", "Eglė", "Dija Vertikali", "Dija Horizontali", "Standard", "Sigma", "Astra", "Polo", "EVA", "EVA3", "Estetic", "Emka",];
+const fenceTypes = [
+  "Daimond 60/90",
+  "Daimond 40/105",
+  "Alba",
+  "Plank",
+  "Žaliuzi",
+  "Eglė",
+  "Dija Vertikali",
+  "Dija Horizontali",
+  "Standard",
+  "Sigma",
+  "Astra",
+  "Polo",
+  "EVA",
+  "EVA3",
+  "Estetic",
+  "Emka",
+];
 
-const fenceMaterials = ["Matinė", "Blizgi", "IceCrystal",];
+const fenceMaterials = ["Matinė", "Blizgi", "IceCrystal"];
 
-const horizontals = ["Daimond 60/90", "Daimond 40/105",  "Plank", "Žaliuzi", "Eglė", "Dija Horizontali"]
+const horizontals = [
+  "Daimond 60/90",
+  "Daimond 40/105",
+  "Plank",
+  "Žaliuzi",
+  "Eglė",
+  "Dija Horizontali",
+];
 
-const verticals = ["Alba", "Dija Vertikali", "Standard", "Sigma", "Astra", "Polo", "EVA", "EVA3", "Estetic", "Emka",]
+const verticals = [
+  "Alba",
+  "Dija Vertikali",
+  "Standard",
+  "Sigma",
+  "Astra",
+  "Polo",
+  "EVA",
+  "EVA3",
+  "Estetic",
+  "Emka",
+];
 
 const clientInitialValue = {
   username: "",
@@ -20,7 +65,7 @@ const clientInitialValue = {
 const initialMeasure = {
   length: null,
   height: null,
-  space: null,
+  MeasureSpace: null,
   gates: false,
   twoSided: false,
   kampas: {
@@ -41,7 +86,7 @@ export const useProjectStore = defineStore("project", {
     fenceColors,
     fenceMaterials,
     verticals,
-    horizontals
+    horizontals,
   }),
 
   actions: {
@@ -56,36 +101,36 @@ export const useProjectStore = defineStore("project", {
         borteliai: true,
         stulpai: true,
         tikMontavimas: false,
-        space: "",
+        space: 3,
         elements: 0,
         totalLength: 0,
         totalSQ: 0,
-        measures: [{...initialMeasure}],
+        measures: [{ ...initialMeasure }],
       });
     },
 
     addMeasure(index) {
-      this.fences[index].measures.push({...initialMeasure});
+      this.fences[index].measures.push({ ...initialMeasure });
     },
 
     addKampas(index) {
-       const kampas = {
-    ...initialMeasure,
-    kampas: {
-      exist: true,
-      value: "",
-    },
-  }; 
+      const kampas = {
+        ...initialMeasure,
+        kampas: {
+          exist: true,
+          value: "",
+        },
+      };
       this.fences[index].measures.push(kampas);
     },
     addLaiptas(index) {
-        const laiptas = {
-    ...initialMeasure,
-    laiptas: {
-      exist: true,
-      value: "",
-    },
-  }; 
+      const laiptas = {
+        ...initialMeasure,
+        laiptas: {
+          exist: true,
+          value: "",
+        },
+      };
       this.fences[index].measures.push(laiptas);
     },
   },
@@ -173,14 +218,11 @@ export const useProjectStore = defineStore("project", {
         data.value;
     },
     updateTotalLength: (state) => (data) => {
-      state.fences[data.index].totalLength =
-        data.value;
+      state.fences[data.index].totalLength = data.value;
     },
     updateTotalSQ: (state) => (data) => {
-      state.fences[data.index].totalSQ =
-        data.value;
+      state.fences[data.index].totalSQ = data.value;
     },
-    
 
     copyLast: (state) => (index) => {
       const elementIndex = state.fences[index].measures.length - 1;
@@ -200,13 +242,11 @@ export const useProjectStore = defineStore("project", {
     },
 
     deleteMeasures: (state) => (index) => {
-      state.fences[index].measures = [{...initialMeasure}];
+      state.fences[index].measures = [{ ...initialMeasure }];
     },
 
     deleteFence: (state) => (data) => {
       state.fences = state.fences.filter((fence) => fence.id !== data);
     },
-
- 
   },
 });

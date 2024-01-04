@@ -1,5 +1,5 @@
-<script setup lang='js'>
-import { useProductsStore } from '~/store/products';
+<script setup lang="js">
+import  {useProductsStore}  from '~/store/products';
 
 const useProducts = useProductsStore();
 const open = useState('priceOpen', () => false);
@@ -29,25 +29,41 @@ const clearHandler = () => {
     newCost.value = 0;
     open.value = false;
 }
-
 </script>
- 
-<template>
-    <div class="flex flex-col gap-4">
-        <BaseButton v-if="!open" name="pridėti naują" @click="open = true" />
-        <div v-else class="flex gap-4">
-            <BaseButton name="išsaugoti" @click="saveHandler" />
-            <BaseButton name="atšaukti" @click="clearHandler" />
-        </div>
-        <div v-if="open" class="flex gap-2 ">
-            <BaseInput :name="newName" width="w-full" variant="light" class="flex-1" label="Pavadinimas"
-                @onChange="(v) => (newName = v)" />
-            <BaseInput :name="newPrice" width="w-24" type="number" label="Kaina" variant="light"
-                @onChange="(v) => (newPrice = v)" />
-            <BaseInput :name="newCost" width="w-24" type="number" label="Savikaina" variant="light"
-                @onChange="(v) => (newCost = v)" />
 
-        </div>
+<template>
+  <div class="flex flex-col gap-4">
+    <BaseButton v-if="!open" name="pridėti naują" @click="open = true" />
+    <div v-else class="flex gap-4">
+      <BaseButton name="išsaugoti" @click="saveHandler" />
+      <BaseButton name="atšaukti" @click="clearHandler" />
     </div>
+    <div v-if="open" class="flex gap-2">
+      <BaseInput
+        :name="newName"
+        width="w-full"
+        variant="light"
+        class="flex-1"
+        label="Pavadinimas"
+        @onChange="(v) => (newName = v)"
+      />
+      <BaseInput
+        :name="newPrice"
+        width="w-24"
+        type="number"
+        label="Kaina"
+        variant="light"
+        @onChange="(v) => (newPrice = v)"
+      />
+      <BaseInput
+        :name="newCost"
+        width="w-24"
+        type="number"
+        label="Savikaina"
+        variant="light"
+        @onChange="(v) => (newCost = v)"
+      />
+    </div>
+  </div>
 </template>
 <style scoped></style>

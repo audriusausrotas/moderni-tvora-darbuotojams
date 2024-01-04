@@ -22,34 +22,31 @@ export const useProductsStore = defineStore("products", {
           currentPage++;
         }
         this.products = [...allProducts];
-
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     },
 
-    async fetchProducts(){
-      const {data} = await $fetch("/api/products");
-      this.products = [...data]
+    async fetchProducts() {
+      const { data } = await $fetch("/api/products");
+      this.products = [...data];
     },
 
-    newProduct(data){
-      this.products.push(data)
-    }
+    newProduct(data) {
+      this.products.push(data);
+    },
   },
 
   getters: {
-    updateProduct: (store)=> (data)=>{
-      store.products = store.products.map(item=> {
-       if (item._id === data._id) return data
-       else return item
-      })
+    updateProduct: (store) => (data) => {
+      store.products = store.products.map((item) => {
+        if (item._id === data._id) return data;
+        else return item;
+      });
     },
 
-    deleteProduct: (store)=> (_id)=>{
-      store.products = store.products.filter((item) =>
-      item._id !== _id
-      )
-    }
-  }
+    deleteProduct: (store) => (_id) => {
+      store.products = store.products.filter((item) => item._id !== _id);
+    },
+  },
 });
