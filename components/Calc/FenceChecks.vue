@@ -1,13 +1,29 @@
 <script setup lang="js">
-import  {useProjectStore}  from '~/store/project';
-
 const { index } = defineProps(['index']);
-
 const useProject = useProjectStore();
+
+const canBeDouble = useProject.verticals;
+const isDouble = useState("isDouble", () =>
+  canBeDouble.includes(useProject.fences[index].type)
+);
+
+watch(
+  () => useProject.fences[index].type,
+  (newType) => {
+    isDouble.value = canBeDouble.includes(newType);
+  },
+  { deep: true }
+);
 </script>
 
 <template>
   <div class="flex flex-wrap justify-center gap-4 xl:justify-normal">
+    <BaseCheckField
+      v-if="isDouble"
+      label="Dvipusė"
+      @onChange="(value) => useProject.updateMeasureTwoSided({ index, value })"
+    />
+
     <BaseCheckField
       label="montavimas"
       name="montavimas"

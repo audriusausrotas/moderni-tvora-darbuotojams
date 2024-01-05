@@ -1,6 +1,4 @@
 <script setup>
-import { useResultsStore } from "~/store/results";
-
 const { result, index } = defineProps(["result", "index"]);
 
 const useResults = useResultsStore();

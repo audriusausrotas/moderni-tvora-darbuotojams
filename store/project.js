@@ -67,7 +67,6 @@ const initialMeasure = {
   height: null,
   MeasureSpace: null,
   gates: false,
-  twoSided: false,
   kampas: {
     exist: false,
     value: "",
@@ -101,6 +100,7 @@ export const useProjectStore = defineStore("project", {
         borteliai: true,
         stulpai: true,
         tikMontavimas: false,
+        twoSided: false,
         space: 3,
         elements: 0,
         totalLength: 0,
@@ -198,7 +198,7 @@ export const useProjectStore = defineStore("project", {
     },
 
     updateMeasureSpace: (state) => (data) => {
-      state.fences[data.index].measures[data.measureIndex].space = data.value;
+      state.fences[data.index].space = data.value;
     },
 
     updateMeasureGate: (state) => (data) => {
@@ -206,8 +206,8 @@ export const useProjectStore = defineStore("project", {
     },
 
     updateMeasureTwoSided: (state) => (data) => {
-      state.fences[data.index].measures[data.measureIndex].twoSided =
-        data.value;
+      console.log(data);
+      state.fences[data.index].twoSided = data.value;
     },
     updateMeasureKampas: (state) => (data) => {
       state.fences[data.index].measures[data.measureIndex].kampas.value =

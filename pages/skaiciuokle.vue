@@ -1,5 +1,4 @@
 <script setup lang="js">
-import  {useProjectStore}  from "~/store/project";
 
 const useProject = useProjectStore();
 

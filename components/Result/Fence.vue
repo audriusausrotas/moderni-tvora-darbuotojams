@@ -1,15 +1,8 @@
 <script setup lang="js">
-import  {useResultsStore}  from '~/store/results';
-import  {useProjectStore}  from '~/store/project';
-
 const useResults = useResultsStore();
 const useProject = useProjectStore()
 
 useResults.calculateResults();
-
-watch(() => useProject.fences, (newValue, oldValue) => {
- console.log("keiciasi")
-}, { deep: true });
 </script>
 
 <template>

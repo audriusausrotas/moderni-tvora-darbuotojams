@@ -1,12 +1,7 @@
 <script setup>
-import { useProjectStore } from "~/store/project";
 const { index } = defineProps(["index"]);
 const useProject = useProjectStore();
 
-const canBeDouble = useProject.verticals;
-const isDouble = useState("isDouble", () =>
-  canBeDouble.includes(useProject.fences[index].type)
-);
 const open = useState("open", () => false);
 const totalLength = useState("totalLength", () => "");
 
@@ -85,14 +80,6 @@ watch(
   },
   { deep: true }
 );
-
-watch(
-  () => useProject.fences[index].type,
-  (newType) => {
-    isDouble.value = canBeDouble.includes(newType);
-  },
-  { deep: true }
-);
 </script>
 <template>
   <div class="flex flex-col justify-center gap-4">
@@ -159,7 +146,6 @@ watch(
       <p class="m-auto">ilgis</p>
       <p class="m-auto">aukštis</p>
       <p class="m-auto">vartai</p>
-      <p v-if="isDouble" class="m-auto">dvipuse</p>
       <p class="m-auto">veiksmai</p>
     </div>
 
@@ -205,15 +191,6 @@ watch(
           "
         />
 
-        <BaseCheckField
-          v-if="isDouble"
-          class="m-auto"
-          @onChange="
-            (value) =>
-              useProject.updateMeasureTwoSided({ index, value, measureIndex })
-          "
-        />
-
         <div
           @click="useProject.deleteMeasure({ index, measureIndex })"
           class="flex items-center justify-center gap-2 px-2 py-1 border rounded-md hover:cursor-pointer"
@@ -239,7 +216,6 @@ watch(
               useProject.updateMeasureKampas({ index, value, measureIndex })
           "
         />
-        <div v-if="isDouble"></div>
         <div></div>
         <div
           @click="useProject.deleteMeasure({ index, measureIndex })"
@@ -266,7 +242,6 @@ watch(
               useProject.updateMeasureLaiptas({ index, value, measureIndex })
           "
         />
-        <div v-if="isDouble"></div>
         <div></div>
         <div
           @click="useProject.deleteMeasure({ index, measureIndex })"

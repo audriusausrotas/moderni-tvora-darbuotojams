@@ -1,8 +1,5 @@
 <script setup lang="js">
 import { useRouter } from "nuxt/app";
-import  {useUserStore}  from "~/store/user";
-import  {useProductsStore}  from "~/store/products";
-
 
 const router = useRouter();
 const useUser = useUserStore();

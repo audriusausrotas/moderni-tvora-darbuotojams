@@ -1,5 +1,5 @@
 <script setup lang="js">
-import  {useProjectStore}  from "~/store/project";
+
 const { index } = defineProps(["index"]);
 const useProject = useProjectStore();
 const fenceSide = ["priekis", "galas", "kairė", "dešinė"];
@@ -8,12 +8,6 @@ const fenceTypes = useProject.fenceTypes;
 const fenceMaterial = useProject.fenceMaterials;
 const fenceColors = useProject.fenceColors;
 const currentFence = useProject.fences[index]
-
-const defaultSides = [];
-const defaultTypes = [];
-const defaultColors = [];
-const defaultMaterials = [];
-const defaultSpaces = []
 </script>
 
 <template>

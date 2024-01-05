@@ -1,6 +1,5 @@
 <script setup>
 import { useFetch } from "nuxt/app";
-import { useUserStore } from "~/store/user";
 
 const useUser = useUserStore();
 
