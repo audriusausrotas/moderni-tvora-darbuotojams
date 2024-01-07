@@ -1,16 +1,18 @@
 <script setup lang="js">
 import  {useProductsStore}  from '~/store/products';
+import { categories } from '~/data/selectFieldData';
 
 const useProducts = useProductsStore();
 const open = useState('priceOpen', () => false);
 const newName = useState('newName', () => "");
 const newPrice = useState('newPrice', () => 0);
 const newCost = useState('newCost', () => 0);
+const newCategory = useState("newCategory", ()=> categories[0])
 
 const saveHandler = async () => {
     if (newName.value.trim() === "") return;
 
-    const newProduct = { name: newName.value, price: newPrice.value, cost: newCost.value };
+    const newProduct = { name: newName.value, price: newPrice.value, cost: newCost.value, category: newCategory.value };
 
     const data = await $fetch("/api/product", {
         method: "post",
@@ -27,6 +29,7 @@ const clearHandler = () => {
     newName.value = "";
     newPrice.value = 0;
     newCost.value = 0;
+    newCategory.value = 0;
     open.value = false;
 }
 </script>
@@ -38,7 +41,7 @@ const clearHandler = () => {
       <BaseButton name="išsaugoti" @click="saveHandler" />
       <BaseButton name="atšaukti" @click="clearHandler" />
     </div>
-    <div v-if="open" class="flex gap-2">
+    <div v-if="open" class="flex items-end gap-2">
       <BaseInput
         :name="newName"
         width="w-full"
@@ -63,7 +66,15 @@ const clearHandler = () => {
         variant="light"
         @onChange="(v) => (newCost = v)"
       />
+      <BaseSelectField
+        label="Kategorija"
+        :values="categories"
+        variant="light"
+        id="categories"
+        :defaultValue="newCategory"
+        width="w-56"
+        @onChange="(v) => (newCategory = v)"
+      />
     </div>
   </div>
 </template>
-<style scoped></style>

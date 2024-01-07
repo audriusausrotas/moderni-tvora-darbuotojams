@@ -1,30 +1,86 @@
-import getFenceTypes from "~/utils/getFenceTypes";
-import AddFenceItem from "~/utils/addFenceItem";
-import calculateParts from "~/utils/calculateParts";
+import { initialResultData } from "~/data/initialValues";
+import { v4 as uuidv4 } from "uuid";
 
 export const useResultsStore = defineStore("results", {
   state: () => ({
     results: [],
-    poles: 0,
-    gatePoles: 0,
-    borders: 0,
-    borderHolders: 0,
-    rivets: 0,
-    crossbars: 0,
-    crossbarHolders: 0,
-    totalElements: 0,
-    bindingsLength: 0,
-    segments: 0,
-    segmentHolders: 0,
+    fences: [],
+    poles: [],
+    gatePoles: [],
+    borders: [],
+    borderHolders: [],
+    rivets: [],
+    crossbars: [],
+    crossbarHolders: [],
+    totalElements: [],
+    bindingsLength: [],
+    segments: [],
+    segmentHolders: [],
     gates: [],
   }),
 
   actions: {
-    calculateResults() {
-      this.results = [];
-      const fenceTypes = getFenceTypes();
-      AddFenceItem(fenceTypes);
-      calculateParts();
+    createFence(item) {
+      // let fenceExist = false;
+      // const initialFenceData = {
+      //   name: item.type,
+      //   color: item.color,
+      //   length: item.totalLength,
+      //   sq: item.totalSQ,
+      //   material: item.material,
+      //   space: item.space,
+      // };
+      // this.fences.forEach((fenceItem) => {
+      //   if (
+      //     fenceItem.name === item.type &&
+      //     fenceItem.color === item.color &&
+      //     fenceItem.material === item.material &&
+      //     fenceItem.space === item.space
+      //   ) {
+      //     fenceItem.length += item.totalLength || 0;
+      //     fenceItem.sq += item.totalSQ || 0;
+      //     fenceExist = true;
+      //   }
+      // });
+      // if (!fenceExist) {
+      //   this.fences.push(initialFenceData);
+      // }
+    },
+    addNew() {
+      this.results.push({ ...initialResultData, id: uuidv4(), isNew: true });
+    },
+
+    updateName(data) {
+      this.results[data.index].name = data.value;
+    },
+    selectItem(data) {
+      const selectedResult = this.results[data.index];
+      selectedResult.name = data.value.name;
+      selectedResult.price = data.value.price;
+      selectedResult.cost = data.value.cost;
+      selectedResult.category = data.value.category;
+    },
+    updateQuantity(data) {
+      this.results[data.index].quantity = data.value;
+    },
+    updateSpace(data) {
+      this.results[data.index].space = data.value;
+    },
+    updateColor(data) {
+      this.results[data.index].color = data.value;
+    },
+
+    recalculateTotals(index) {
+      const result = this.results[index];
+
+      result.totalPrice = result.price * result.quantity;
+      result.totalCost = result.cost * result.quantity;
+      result.profit = result.totalPrice - result.totalCost;
+      result.margin = (
+        Math.round(
+          ((result.totalPrice - result.totalCost) / result.totalPrice) * 10000
+        ) / 100
+      ).toFixed(2);
     },
 
     addPoles(data) {
@@ -64,6 +120,8 @@ export const useResultsStore = defineStore("results", {
       this.gates.push(data);
     },
 
+    createResults() {},
+
     deleteResult(id) {
       this.results = this.results.filter((item) => item.id !== id);
     },
@@ -73,6 +131,7 @@ export const useResultsStore = defineStore("results", {
     },
 
     clearParts() {
+      this.fences = [];
       this.poles = 0;
       this.gatePoles = 0;
       this.borders = 0;

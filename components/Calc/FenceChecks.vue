@@ -1,16 +1,16 @@
 <script setup lang="js">
+import { verticals } from '~/data/selectFieldData';
 const { index } = defineProps(['index']);
 const useProject = useProjectStore();
 
-const canBeDouble = useProject.verticals;
 const isDouble = useState("isDouble", () =>
-  canBeDouble.includes(useProject.fences[index].type)
+  verticals.includes(useProject.fences[index].type)
 );
 
 watch(
   () => useProject.fences[index].type,
   (newType) => {
-    isDouble.value = canBeDouble.includes(newType);
+    isDouble.value = verticals.includes(newType);
   },
   { deep: true }
 );

@@ -1,4 +1,6 @@
 export default function calculatePols(measures) {
+  const results = useResultsStore();
+
   let poles = 1;
   let gatePoles = 0;
   let isTogether = false;
@@ -17,5 +19,6 @@ export default function calculatePols(measures) {
       isTogether = false;
     }
   });
-  return { poles, gatePoles };
+  results.addPoles(poles);
+  results.addGatePoles(gatePoles);
 }

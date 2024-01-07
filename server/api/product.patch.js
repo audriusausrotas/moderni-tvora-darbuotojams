@@ -1,15 +1,18 @@
 import { productSchema } from "../models/productSchema";
 
 export default defineEventHandler(async (event) => {
-  const { name, price, cost, _id } = await readBody(event);
+  const { name, price, cost, _id, category } = await readBody(event);
 
   const updatedData = {
     name,
     price,
-    cost , 
+    cost,
+    category,
   };
 
-  const data = await productSchema.findOneAndUpdate({ _id }, updatedData, { new: true });
+  const data = await productSchema.findOneAndUpdate({ _id }, updatedData, {
+    new: true,
+  });
 
   if (!data) {
     return { success: false, data: null, message: "Produktas neegzistuoja" };

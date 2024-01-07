@@ -1,91 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
-
-const fenceColors = [
-  "7016",
-  "7024",
-  "8019",
-  "8017",
-  "6020",
-  "6005",
-  "9005",
-  "3009",
-  "Kita",
-];
-
-const fenceTypes = [
-  "Daimond 60/90",
-  "Daimond 40/105",
-  "Alba",
-  "Plank",
-  "Žaliuzi",
-  "Eglė",
-  "Dija Vertikali",
-  "Dija Horizontali",
-  "Standard",
-  "Sigma",
-  "Astra",
-  "Polo",
-  "EVA",
-  "EVA3",
-  "Estetic",
-  "Emka",
-];
-
-const fenceMaterials = ["Matinė", "Blizgi", "IceCrystal"];
-
-const horizontals = [
-  "Daimond 60/90",
-  "Daimond 40/105",
-  "Plank",
-  "Žaliuzi",
-  "Eglė",
-  "Dija Horizontali",
-];
-
-const verticals = [
-  "Alba",
-  "Dija Vertikali",
-  "Standard",
-  "Sigma",
-  "Astra",
-  "Polo",
-  "EVA",
-  "EVA3",
-  "Estetic",
-  "Emka",
-];
-
-const clientInitialValue = {
-  username: "",
-  address: "",
-  phone: "",
-  email: "",
-};
-
-const initialMeasure = {
-  length: null,
-  height: null,
-  MeasureSpace: null,
-  gates: false,
-  kampas: {
-    exist: false,
-    value: "",
-  },
-  laiptas: {
-    exist: false,
-    value: "",
-  },
-};
+import { clientInitialValue } from "~/data/initialValues";
+import { initialMeasure } from "~/data/initialValues";
 
 export const useProjectStore = defineStore("project", {
   state: () => ({
     client: clientInitialValue,
     fences: [],
-    fenceTypes,
-    fenceColors,
-    fenceMaterials,
-    verticals,
-    horizontals,
   }),
 
   actions: {
@@ -206,7 +126,6 @@ export const useProjectStore = defineStore("project", {
     },
 
     updateMeasureTwoSided: (state) => (data) => {
-      console.log(data);
       state.fences[data.index].twoSided = data.value;
     },
     updateMeasureKampas: (state) => (data) => {

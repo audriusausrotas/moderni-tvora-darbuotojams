@@ -10,6 +10,11 @@ export const productSchema = defineMongooseModel(
       required: false,
       default: "",
     },
+    category: {
+      type: String,
+      required: false,
+      default: "other",
+    },
     image: {
       type: String,
       required: false,

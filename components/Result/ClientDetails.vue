@@ -1,7 +1,6 @@
 <script setup>
-import { useProjectStore } from "~/store/project";
-
 const useProject = useProjectStore();
+const useResults = useResultsStore();
 </script>
 
 <template>
@@ -26,6 +25,12 @@ const useProject = useProjectStore();
       />
     </div>
   </div>
-  <BaseButton name="išsaugoti" />
+  <div class="flex gap-4">
+    <BaseButton name="pridėti naują detalę" @click="useResults.addNew" />
+    <BaseButton
+      name="išsaugoti sąmatą"
+      @click="console.log(useResults.results)"
+    />
+  </div>
 </template>
 <style scoped></style>

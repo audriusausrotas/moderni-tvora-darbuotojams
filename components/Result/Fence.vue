@@ -1,8 +1,8 @@
 <script setup lang="js">
-const useResults = useResultsStore();
-const useProject = useProjectStore()
+import calculateResults from '~/utils/calculateResults';
+const results = useResultsStore();
 
-useResults.calculateResults();
+// calculateResults()
 </script>
 
 <template>
@@ -23,12 +23,17 @@ useResults.calculateResults();
         <th class="w-8 p-3 rounded-tr-2xl"></th>
       </tr>
     </thead>
-    <tbody
-      v-for="(result, index) in useResults.results"
-      :key="result.id"
-      class="items-center border-b"
-    >
-      <ResultFenceElement :result="result" :index="index" />
+    <tbody>
+      <tr
+        v-for="(result, index) in results.results"
+        :key="result.id"
+        class="items-center border-b"
+      >
+        <ResultFenceElement :result="result" :index="index" />
+      </tr>
+      <tr>
+        <ResultTotalElement results="results" />
+      </tr>
     </tbody>
   </table>
 </template>

@@ -3,11 +3,18 @@ import { defineStore } from "pinia";
 export const useProductsStore = defineStore("products", {
   state: () => ({
     products: [],
+    fences: [],
+    poles: [],
+    borders: [],
+    crossbars: [],
+    holders: [],
+    gates: [],
+    other: [],
+    searchValue: "",
   }),
 
   actions: {
     async fetchProductsFromWebsite() {
-      console.log("fecina produktus");
       try {
         let currentPage = 1;
         let totalPages = 1;
@@ -30,6 +37,36 @@ export const useProductsStore = defineStore("products", {
     async fetchProducts() {
       const { data } = await $fetch("/api/products");
       this.products = [...data];
+      data.forEach((item) => {
+        switch (item.category) {
+          case "tvoros":
+            this.fences.push(item);
+            break;
+          case "stulpai":
+            this.poles.push(item);
+            break;
+          case "borteliai":
+            this.borders.push(item);
+            break;
+          case "skersiniai":
+            this.crossbars.push(item);
+            break;
+          case "laikikliai":
+            this.holders.push(item);
+            break;
+          case "vartai":
+            this.gates.push(item);
+            break;
+
+          default:
+            this.other.push(item);
+            break;
+        }
+      });
+    },
+
+    updateSearch(value) {
+      this.searchValue = value;
     },
 
     newProduct(data) {

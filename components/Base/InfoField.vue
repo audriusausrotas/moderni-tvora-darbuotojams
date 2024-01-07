@@ -1,11 +1,12 @@
-<script setup lang='js'>
+<script setup lang="js">
 const { name } = defineProps(["name"]);
 </script>
- 
-<template>
-    <p class="justify-center w-20 px-4 py-2 m-auto border rounded-lg shadow-sm border-dark-ultra-light bg-gray-ultra-light">
-        {{ name }}
 
-    </p>
+<template>
+  <p
+    class="justify-center w-20 px-4 py-2 m-auto border rounded-lg shadow-sm border-dark-light bg-gray-ultra-light"
+  >
+    {{ name }}
+  </p>
 </template>
 <style scoped></style>

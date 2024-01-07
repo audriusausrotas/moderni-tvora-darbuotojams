@@ -1,12 +1,10 @@
 <script setup lang="js">
+import {fenceColors, fenceTypes, fenceMaterials } from "~/data/selectFieldData"
 
 const { index } = defineProps(["index"]);
 const useProject = useProjectStore();
 const fenceSide = ["priekis", "galas", "kairė", "dešinė"];
 
-const fenceTypes = useProject.fenceTypes;
-const fenceMaterial = useProject.fenceMaterials;
-const fenceColors = useProject.fenceColors;
 const currentFence = useProject.fences[index]
 </script>
 
@@ -38,8 +36,8 @@ const currentFence = useProject.fences[index]
     />
     <BaseSelectField
       label="Skardos Tipas"
-      :values="fenceMaterial"
-      id="fenceMaterial"
+      :values="fenceMaterials"
+      id="fenceMaterials"
       :defaultValue="currentFence.material"
       width="w-56"
       @onChange="(value) => useProject.updateMaterial({ index, value })"

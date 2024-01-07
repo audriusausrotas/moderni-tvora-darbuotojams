@@ -1,5 +1,5 @@
 <script setup lang="js">
-const { placeholder, label, type, name, width, active, variant, disable } = defineProps(["placeholder", "label", "type", "name", "width", "active", "variant", "disable"]);
+const props = defineProps(["placeholder", "label", "type", "name", "width", "active", "variant", "disable"]);
 const emit = defineEmits(["onChange", "EnterPressed"]);
 
 const emitUpdate = (value) => {
@@ -13,25 +13,37 @@ const handleEnterKey = () => {
 };
 
 onMounted(() => {
-  if (active && inputRef.value) {
+  if (props.active && inputRef.value) {
     inputRef.value.focus();
   }
 });
-
 </script>
-
 
 <template>
   <div class="flex flex-col gap-2 capitalize">
-    <label v-if="label" :for="label" class="pl-2 text-sm">{{ label }}</label>
+    <label v-if="props.label" :for="props.label" class="pl-2 text-sm">{{
+      props.label
+    }}</label>
 
     <div
-      class="flex items-center justify-center gap-3 px-4 py-2 overflow-auto border rounded-lg shadow-sm border-dark-light "
-      :class="width ? width : 'w-60', variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light'">
+      class="flex items-center justify-center gap-3 px-4 py-2 overflow-auto border rounded-lg shadow-sm border-dark-light"
+      :class="
+        (props.width ? props.width : 'w-60',
+        props.variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light')
+      "
+    >
       <slot />
-      <input :value="name" :placeholder="placeholder" :id="label" :type="type" :disabled="disable || false"
-        @input="emitUpdate($event.target.value)" @keyup.enter="handleEnterKey" ref="inputRef"
-        class="w-full h-full overflow-scroll border-0 outline-none active:outline-none bg-inherit active:border-0" />
+      <input
+        :value="props.name"
+        :placeholder="props.placeholder"
+        :id="props.label"
+        :type="props.type"
+        :disabled="props.disable || false"
+        @input="emitUpdate($event.target.value)"
+        @keyup.enter="handleEnterKey"
+        ref="inputRef"
+        class="w-full h-full overflow-scroll border-0 outline-none active:outline-none bg-inherit active:border-0"
+      />
     </div>
   </div>
 </template>

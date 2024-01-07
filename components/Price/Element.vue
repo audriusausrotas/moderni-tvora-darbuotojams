@@ -1,5 +1,6 @@
 <script setup lang="js">
 import  {useProductsStore}  from "~/store/products";
+import { categories } from "~/data/selectFieldData";
 
 const { product, index } = defineProps(["product", "index"]);
 const useProducts = useProductsStore();
@@ -8,6 +9,7 @@ const disable = useState(`disable${index}`, () => true);
 const productName = useState(`name${index}`, () => product.name);
 const productPrice = useState(`price${index}`, () => product.price);
 const productCost = useState(`cost${index}`, () => product.cost);
+const productCategory = useState(`category${index}`, () => product.category);
 
 const editHandler = () => {
     disable.value = !disable.value;
@@ -24,9 +26,9 @@ const deleteHandler = async () => {
 };
 
 const saveHandler = async () => {
-    if (product.cost === productCost.value && product.price === productPrice.value && product.name === productName.value) return disable.value = true;
+    if (product.cost === productCost.value && product.price === productPrice.value && product.name === productName.value && productCategory.value === product.category) return disable.value = true;
 
-    const newData = { _id: product._id, name: productName.value, price: productPrice.value, cost: productCost.value };
+    const newData = { _id: product._id, name: productName.value, price: productPrice.value, cost: productCost.value, category: productCategory.value };
 
     const data = await $fetch("/api/product", {
         method: "patch",
@@ -71,7 +73,17 @@ const saveHandler = async () => {
       @onChange="(v) => (productCost = v)"
     />
   </td>
-
+  <td>
+    <BaseSelectField
+      :values="categories"
+      :disable="disable"
+      variant="light"
+      id="categories"
+      :defaultValue="productCategory"
+      width="w-56"
+      @onChange="(v) => (productCategory = v)"
+    />
+  </td>
   <td>
     <NuxtImg
       v-if="disable"
@@ -97,5 +109,3 @@ const saveHandler = async () => {
     />
   </td>
 </template>
-
-<style scoped></style>

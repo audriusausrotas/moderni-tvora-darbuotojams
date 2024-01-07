@@ -1,4 +1,5 @@
 <script setup>
+import { useProductsStore } from "~/store/products";
 const useProducts = useProductsStore();
 </script>
 <template>
@@ -14,6 +15,7 @@ const useProducts = useProductsStore();
             <th class="min-w-[500px]">pavadinimas</th>
             <th class="w-24 p-3">kaina</th>
             <th class="w-24 p-3">savikaina</th>
+            <th class="w-24 p-3">Kategorija</th>
             <th class="w-8 p-3"></th>
             <th class="w-8 p-3 rounded-tr-2xl"></th>
           </tr>
@@ -30,7 +32,3 @@ const useProducts = useProductsStore();
     </div>
   </div>
 </template>
-<style scoped>
-.custom-grid {
-}
-</style>
