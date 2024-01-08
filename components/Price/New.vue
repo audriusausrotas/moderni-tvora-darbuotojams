@@ -3,11 +3,11 @@ import  {useProductsStore}  from '~/store/products';
 import { categories } from '~/data/selectFieldData';
 
 const useProducts = useProductsStore();
-const open = useState('priceOpen', () => false);
-const newName = useState('newName', () => "");
-const newPrice = useState('newPrice', () => 0);
-const newCost = useState('newCost', () => 0);
-const newCategory = useState("newCategory", ()=> categories[0])
+const open = ref(false);
+const newName = ref("");
+const newPrice = ref(0);
+const newCost = ref(0);
+const newCategory = ref(categories[0])
 
 const saveHandler = async () => {
     if (newName.value.trim() === "") return;

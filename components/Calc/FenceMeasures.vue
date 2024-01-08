@@ -1,9 +1,9 @@
 <script setup>
-const { index } = defineProps(["index"]);
+const props = defineProps(["index"]);
 const useProject = useProjectStore();
 
-const open = useState("open", () => false);
-const totalLength = useState("totalLength", () => "");
+const open = ref(false);
+const totalLength = ref("");
 
 const cancelHandler = () => {
   open.value = false;
@@ -39,12 +39,12 @@ const calculateLengthHandler = () => {
 
   totalMeasures.forEach((item) => {
     let lastElement =
-      useProject.fences[index].measures[
-        useProject.fences[index].measures.length - 1
+      useProject.fences[props.index].measures[
+        useProject.fences[props.index].measures.length - 1
       ];
 
     if (!lastElement) {
-      useProject.addMeasure(index);
+      useProject.addMeasure(props.index);
       lastElement = 0;
     }
 
@@ -53,12 +53,12 @@ const calculateLengthHandler = () => {
       lastElement.kampas.exist ||
       lastElement.laiptas.exist
     ) {
-      useProject.addMeasure(index);
+      useProject.addMeasure(props.index);
     }
     useProject.updateMeasureLength({
-      index,
+      index: props.index,
       value: item,
-      measureIndex: useProject.fences[index].measures.length - 1,
+      measureIndex: useProject.fences[props.index].measures.length - 1,
     });
   });
 
@@ -67,7 +67,7 @@ const calculateLengthHandler = () => {
 };
 
 watch(
-  () => useProject.fences[index].measures,
+  () => useProject.fences[props.index].measures,
   (newMeasures, oldMeasures) => {
     let totalM = 0;
     let totalSQ = 0;
@@ -75,8 +75,8 @@ watch(
       totalM += +item.length;
       totalSQ += item.length * item.height;
     });
-    useProject.updateTotalLength({ index, value: totalM / 100 });
-    useProject.updateTotalSQ({ index, value: totalSQ / 10000 });
+    useProject.updateTotalLength({ index: props.index, value: totalM / 100 });
+    useProject.updateTotalSQ({ index: props.index, value: totalSQ / 10000 });
   },
   { deep: true }
 );
@@ -84,10 +84,13 @@ watch(
 <template>
   <div class="flex flex-col justify-center gap-4">
     <div class="flex flex-wrap justify-center gap-4">
-      <BaseButton name="prideti nauja" @click="useProject.addMeasure(index)" />
+      <BaseButton
+        name="prideti nauja"
+        @click="useProject.addMeasure(props.index)"
+      />
       <BaseButton
         name="nukopijuoti paskutinį"
-        @click="useProject.copyLast(index)"
+        @click="useProject.copyLast(props.index)"
       />
       <BaseButton
         v-if="!open"
@@ -119,18 +122,24 @@ watch(
       </div>
     </div>
     <div class="flex flex-wrap justify-center gap-4">
-      <BaseButton name="įterpti kampą" @click="useProject.addKampas(index)" />
-      <BaseButton name="įterpti laiptą" @click="useProject.addLaiptas(index)" />
+      <BaseButton
+        name="įterpti kampą"
+        @click="useProject.addKampas(props.index)"
+      />
+      <BaseButton
+        name="įterpti laiptą"
+        @click="useProject.addLaiptas(props.index)"
+      />
       <BaseButton
         name="išvalyti visus"
-        @click="useProject.deleteMeasures(index)"
+        @click="useProject.deleteMeasures(props.index)"
       />
     </div>
   </div>
   <div class="flex flex-wrap justify-center gap-4">
-    <p>Bendras Ilgis: {{ useProject.fences[index].totalLength }} m</p>
+    <p>Bendras Ilgis: {{ useProject.fences[props.index].totalLength }} m</p>
     <p class="flex">
-      Kvadratiniai metrai: {{ useProject.fences[index].totalSQ }} m<span
+      Kvadratiniai metrai: {{ useProject.fences[props.index].totalSQ }} m<span
         class="text-[10px] font-semibold"
         >2</span
       >
@@ -139,7 +148,7 @@ watch(
 
   <div class="flex flex-col gap-4">
     <div
-      v-if="useProject.fences[index].measures.length > 0"
+      v-if="useProject.fences[props.index].measures.length > 0"
       class="grid gap-2 py-3 rounded-t-xl custom-grid bg-gray-ultra-light"
     >
       <p class="m-auto">Nr</p>
@@ -149,7 +158,9 @@ watch(
       <p class="m-auto">veiksmai</p>
     </div>
 
-    <div v-for="(measure, measureIndex) in useProject.fences[index].measures">
+    <div
+      v-for="(measure, measureIndex) in useProject.fences[props.index].measures"
+    >
       <div
         v-if="!measure.kampas.exist && !measure.laiptas.exist"
         class="grid items-center gap-2 custom-grid"
@@ -162,10 +173,14 @@ watch(
           type="number"
           variant="light"
           :name="measure.length"
-          @EnterPressed="useProject.addMeasure(index)"
+          @EnterPressed="useProject.addMeasure(props.index)"
           @onChange="
             (value) =>
-              useProject.updateMeasureLength({ index, value, measureIndex })
+              useProject.updateMeasureLength({
+                index: props.index,
+                value,
+                measureIndex,
+              })
           "
           :active="true"
         />
@@ -176,10 +191,14 @@ watch(
           type="number"
           variant="light"
           :name="measure.height"
-          @EnterPressed="useProject.addMeasure(index)"
+          @EnterPressed="useProject.addMeasure(props.index)"
           @onChange="
             (value) =>
-              useProject.updateMeasureHeight({ index, value, measureIndex })
+              useProject.updateMeasureHeight({
+                index: props.index,
+                value,
+                measureIndex,
+              })
           "
         />
 
@@ -187,12 +206,18 @@ watch(
           class="m-auto"
           @onChange="
             (value) =>
-              useProject.updateMeasureGate({ index, value, measureIndex })
+              useProject.updateMeasureGate({
+                index: props.index,
+                value,
+                measureIndex,
+              })
           "
         />
 
         <div
-          @click="useProject.deleteMeasure({ index, measureIndex })"
+          @click="
+            useProject.deleteMeasure({ index: props.index, measureIndex })
+          "
           class="flex items-center justify-center gap-2 px-2 py-1 border rounded-md hover:cursor-pointer"
         >
           <NuxtImg src="/icons/delete.svg" width="20" />
@@ -213,12 +238,18 @@ watch(
           :name="measure.kampas.value"
           @onChange="
             (value) =>
-              useProject.updateMeasureKampas({ index, value, measureIndex })
+              useProject.updateMeasureKampas({
+                index: props.index,
+                value,
+                measureIndex,
+              })
           "
         />
         <div></div>
         <div
-          @click="useProject.deleteMeasure({ index, measureIndex })"
+          @click="
+            useProject.deleteMeasure({ index: props.index, measureIndex })
+          "
           class="flex items-center justify-center gap-2 px-2 py-1 border rounded-md hover:cursor-pointer"
         >
           <NuxtImg src="/icons/delete.svg" width="20" />
@@ -239,12 +270,18 @@ watch(
           :name="measure.laiptas.value"
           @onChange="
             (value) =>
-              useProject.updateMeasureLaiptas({ index, value, measureIndex })
+              useProject.updateMeasureLaiptas({
+                index: props.index,
+                value,
+                measureIndex,
+              })
           "
         />
         <div></div>
         <div
-          @click="useProject.deleteMeasure({ index, measureIndex })"
+          @click="
+            useProject.deleteMeasure({ index: props.index, measureIndex })
+          "
           class="flex items-center justify-center gap-2 px-2 py-1 border rounded-md hover:cursor-pointer"
         >
           <NuxtImg src="/icons/delete.svg" width="20" />

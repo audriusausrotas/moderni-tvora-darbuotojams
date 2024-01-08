@@ -3,9 +3,9 @@ import useError from '~/composables/useError';
 
 const useUser = useUserStore();
 const {setError, message, isError} = useError()
-const password = useState("password", ()=>"")
-const modalOpen = useState("modalOpen", ()=>false)
-const selectedUser = useState("selectedUser", ()=>"")
+const password = ref("")
+const modalOpen = ref(false)
+const selectedUser = ref("")
 
 if (useUser.users.length === 0){
   const data = await useFetch("/api/users");

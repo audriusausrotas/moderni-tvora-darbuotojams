@@ -17,6 +17,10 @@ export const useResultsStore = defineStore("results", {
     segments: [],
     segmentHolders: [],
     gates: [],
+    totalPrice: 0,
+    totalCost: 0,
+    totalProfit: 0,
+    totalMargin: 0,
   }),
 
   actions: {
@@ -53,6 +57,7 @@ export const useResultsStore = defineStore("results", {
     updateName(data) {
       this.results[data.index].name = data.value;
     },
+
     selectItem(data) {
       const selectedResult = this.results[data.index];
       selectedResult.name = data.value.name;
@@ -60,19 +65,29 @@ export const useResultsStore = defineStore("results", {
       selectedResult.cost = data.value.cost;
       selectedResult.category = data.value.category;
     },
+
     updateQuantity(data) {
       this.results[data.index].quantity = data.value;
+      this.recalculateTotals(data.index);
+      this.calculateTotals();
     },
+
     updateSpace(data) {
       this.results[data.index].space = data.value;
     },
+
     updateColor(data) {
       this.results[data.index].color = data.value;
     },
 
+    updatePrice(data) {
+      this.results[data.index].price = data.value;
+      this.recalculateTotals(data.index);
+      this.calculateTotals();
+    },
+
     recalculateTotals(index) {
       const result = this.results[index];
-
       result.totalPrice = result.price * result.quantity;
       result.totalCost = result.cost * result.quantity;
       result.profit = result.totalPrice - result.totalCost;
@@ -122,12 +137,32 @@ export const useResultsStore = defineStore("results", {
 
     createResults() {},
 
+    calculateTotals() {
+      this.clearTotals();
+      this.results.forEach((item) => {
+        this.totalPrice += +item.totalPrice;
+        this.totalCost += +item.totalCost;
+        this.totalProfit += +item.profit;
+        this.totalMargin += +item.margin || 0;
+      });
+      this.totalMargin = +this.totalMargin / +this.results.length;
+    },
+
     deleteResult(id) {
       this.results = this.results.filter((item) => item.id !== id);
+      this.calculateTotals();
     },
 
     clearResults() {
       this.results = [];
+      this.clearTotals();
+    },
+
+    clearTotals() {
+      this.totalPrice = 0;
+      this.totalCost = 0;
+      this.totalProfit = 0;
+      this.totalMargin = 0;
     },
 
     clearParts() {

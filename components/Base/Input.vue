@@ -20,30 +20,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 capitalize">
+  <div class="flex flex-col capitalize">
     <label v-if="props.label" :for="props.label" class="pl-2 text-sm">{{
       props.label
     }}</label>
 
     <div
-      class="flex items-center justify-center gap-3 px-4 py-2 overflow-auto border rounded-lg shadow-sm border-dark-light"
-      :class="
-        (props.width ? props.width : 'w-60',
-        props.variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light')
-      "
-    >
+      class="flex items-center justify-center h-10 gap-3 px-4 overflow-auto border rounded-lg shadow-sm border-dark-light"
+      :class="(props.width ? props.width : 'w-60',
+            props.variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light')
+          ">
       <slot />
-      <input
-        :value="props.name"
-        :placeholder="props.placeholder"
-        :id="props.label"
-        :type="props.type"
-        :disabled="props.disable || false"
-        @input="emitUpdate($event.target.value)"
-        @keyup.enter="handleEnterKey"
+      <input :value="props.name" :placeholder="props.placeholder" :id="props.label" :type="props.type"
+        :disabled="props.disable || false" @input="emitUpdate($event.target.value)" @keyup.enter="handleEnterKey"
         ref="inputRef"
-        class="w-full h-full overflow-scroll border-0 outline-none active:outline-none bg-inherit active:border-0"
-      />
+        class="w-full h-full overflow-scroll border-0 outline-none active:outline-none bg-inherit active:border-0" />
     </div>
   </div>
 </template>

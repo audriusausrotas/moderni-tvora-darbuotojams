@@ -4,9 +4,9 @@ import { useFetch } from "nuxt/app";
 const useUser = useUserStore();
 
 const initials = computed(() => useUser.user?.username.slice(0, 2));
-const url = useState("url", () => "");
-const newPassword = useState("newPassword", () => "");
-const password = useState("password", () => "");
+const url = ref("");
+const newPassword = ref("");
+const password = ref("");
 
 const saveHandler = async () => {
   const reqData = {

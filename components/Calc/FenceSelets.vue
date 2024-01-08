@@ -1,11 +1,10 @@
 <script setup lang="js">
-import {fenceColors, fenceTypes, fenceMaterials } from "~/data/selectFieldData"
+import {fenceColors, fenceTypes, fenceMaterials, fenceSide } from "~/data/selectFieldData"
 
-const { index } = defineProps(["index"]);
+const props = defineProps(["index"]);
 const useProject = useProjectStore();
-const fenceSide = ["priekis", "galas", "kairė", "dešinė"];
 
-const currentFence = useProject.fences[index]
+const currentFence = useProject.fences[props.index]
 </script>
 
 <template>
@@ -16,7 +15,9 @@ const currentFence = useProject.fences[index]
       id="fenceSide"
       :defaultValue="currentFence.side"
       width="w-56"
-      @onChange="(value) => useProject.updateSide({ index, value })"
+      @onChange="
+        (value) => useProject.updateSide({ index: props.index, value })
+      "
     />
     <BaseSelectField
       label="Tvoros tipas"
@@ -24,7 +25,9 @@ const currentFence = useProject.fences[index]
       id="fenceType"
       :defaultValue="currentFence.type"
       width="w-56"
-      @onChange="(value) => useProject.updateType({ index, value })"
+      @onChange="
+        (value) => useProject.updateType({ index: props.index, value })
+      "
     />
     <BaseSelectField
       label="Tvoros spalva"
@@ -32,7 +35,9 @@ const currentFence = useProject.fences[index]
       id="fenceColor"
       :defaultValue="currentFence.color"
       width="w-56"
-      @onChange="(value) => useProject.updateColor({ index, value })"
+      @onChange="
+        (value) => useProject.updateColor({ index: props.index, value })
+      "
     />
     <BaseSelectField
       label="Skardos Tipas"
@@ -40,7 +45,9 @@ const currentFence = useProject.fences[index]
       id="fenceMaterials"
       :defaultValue="currentFence.material"
       width="w-56"
-      @onChange="(value) => useProject.updateMaterial({ index, value })"
+      @onChange="
+        (value) => useProject.updateMaterial({ index: props.index, value })
+      "
     />
     <BaseInput
       placeholder="Tarpas Tarp Elementų"
@@ -50,7 +57,12 @@ const currentFence = useProject.fences[index]
       width="w-56"
       :name="currentFence.space"
       @onChange="
-        (value) => useProject.updateMeasureSpace({ index, value, measureIndex })
+        (value) =>
+          useProject.updateMeasureSpace({
+            index: props.index,
+            value,
+            measureIndex,
+          })
       "
     />
   </div>

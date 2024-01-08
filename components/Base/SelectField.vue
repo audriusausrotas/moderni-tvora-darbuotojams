@@ -1,17 +1,7 @@
 <script setup>
-const {
-  values,
-  defaultValue,
-  id,
-  name,
-  label,
-  width,
-  disable,
-  variant,
-} = defineProps([
+const props = defineProps([
   "values",
   "defaultValue",
-  "id",
   "name",
   "label",
   "width",
@@ -21,7 +11,7 @@ const {
 const emit = defineEmits(["onChange"]);
 
 const isOpen = ref(false);
-const selectedValue = ref(defaultValue);
+const selectedValue = ref(props.defaultValue);
 
 const changeHandler = (value) => {
   selectedValue.value = value;
@@ -32,23 +22,28 @@ const changeHandler = (value) => {
 
 <template>
   <div class="flex flex-col gap-2 capitalize select-none">
-    <label v-if="label" :for="label" class="pl-2 text-sm">{{ label }}</label>
-    <div class="relative selct-none" :class="width ? `${width}` : 'w-48'">
+    <label v-if="props.label" :for="props.label" class="pl-2 text-sm">{{
+      props.label
+    }}</label>
+    <div
+      class="relative selct-none"
+      :class="props.width ? `${props.width}` : 'w-48'"
+    >
       <div
-        @click="disable ? '' : (isOpen = !isOpen)"
+        @click="props.disable ? '' : (isOpen = !isOpen)"
         class="flex justify-between gap-3 py-2 pl-4 border border-dark-light rounded-2xl"
         :class="[
-          variant !== 'light'
+          props.variant !== 'light'
             ? 'bg-gray-ultra-light'
-            : disable
+            : props.disable
             ? 'bg-gray-ultra-light'
             : 'bg-white',
-          disable ? '' : 'cursor-pointer',
+          props.disable ? '' : 'cursor-pointer',
         ]"
       >
         <div class="flex gap-3 capitalize">
           <NuxtImg
-            v-if="name === 'verified'"
+            v-if="props.name === 'verified'"
             :src="
               selectedValue === 'patvirtintas'
                 ? '/icons/ellipseg.svg'
@@ -63,10 +58,10 @@ const changeHandler = (value) => {
       <div
         v-if="isOpen"
         class="absolute left-0 z-50 flex flex-col w-[inherit] overflow-y-scroll border max-h-52 rounded-xl top-10 border-gray-light"
-        :class="variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light'"
+        :class="props.variant === 'light' ? 'bg-white' : 'bg-gray-ultra-light'"
       >
         <div
-          v-for="(value, index) in values"
+          v-for="(value, index) in props.values"
           :key="index"
           @click="changeHandler(value)"
           class="px-4 py-2 hover:bg-red-full hover:cursor-pointer hover:text-white"

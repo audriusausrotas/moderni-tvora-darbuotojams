@@ -1,13 +1,13 @@
 <script setup lang="js">
 
-const {fence, index} = defineProps(['fence', 'index'])
+const props = defineProps(['fence', 'index'])
 
 const useProject = useProjectStore()
 
-const open = useState(fence.id, ()=> true)
+const open = ref(true)
 
 const deleteHandler=()=>{
-useProject.deleteFence(fence.id)
+useProject.deleteFence(props.fence.id)
 }
 </script>
 
@@ -16,7 +16,7 @@ useProject.deleteFence(fence.id)
     <div class="flex gap-8">
       <CalcTitle
         :open="open"
-        :name="'Tvora ' + (index + 1)"
+        :name="'Tvora ' + (props.index + 1)"
         @onClick="open = !open"
       />
       <NuxtImg
@@ -26,6 +26,6 @@ useProject.deleteFence(fence.id)
         @click="deleteHandler"
       />
     </div>
-    <CalcFenceDetails v-if="open" :index="index" />
+    <CalcFenceDetails v-if="open" :index="props.index" />
   </div>
 </template>

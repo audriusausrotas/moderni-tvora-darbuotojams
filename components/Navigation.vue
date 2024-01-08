@@ -4,7 +4,7 @@ const menuLinks = [{ name: "Projektai", link: "/", iconPath: "/icons/projects.sv
 
 const route = useRoute();
 const useUser = useUserStore();
-const currentPath = useState("currentPath", () => "");
+const currentPath = ref("");
 
 function routeHandler(newPath) {
   if (newPath.includes("samata")) currentPath.value = "Sąmata";

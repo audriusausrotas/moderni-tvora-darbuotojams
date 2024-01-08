@@ -1,7 +1,7 @@
 <script setup lang="js">
 
 const useProject = useProjectStore();
-const open = useState("clientOpen", () => true);
+const open = ref(true);
 </script>
 
 <template>

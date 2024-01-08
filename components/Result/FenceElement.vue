@@ -1,94 +1,61 @@
 <script setup>
-const { result, index } = defineProps(["result", "index"]);
+const props = defineProps(["result", "index"]);
 
 const useResults = useResultsStore();
 const useProduct = useProductsStore();
-
 const deleteHandler = () => {
-  useResults.deleteResult(result.id);
+  useResults.deleteResult(props.result.id);
 };
 
-const colorEditable = computed(() => result.color === "Kita" || result.isNew);
+const colorEditable = computed(
+  () => props.result.color === "Kita" || props.result.isNew
+);
 const spaceEditable = computed(
-  () => result.isNew && result.category === "tvoros"
+  () => props.result.isNew && props.result.category === "tvoros" && !props.result.name.includes("Segmentas")
 );
 
-watch(
-  result,
-  () => {
-    useResults.recalculateTotals(index);
-  },
-  { deep: true }
-);
 </script>
 
 <template>
-  <td class="py-3 text-center">{{ index + 1 }}</td>
-  <td class="px-1 py-3">
-    <BaseSearchField
-      width="w-full"
-      :data="useProduct.products"
-      @OnClick="
-        (value) => {
-          useResults.selectItem({ index, value });
-        }
-      "
-      @onChange="(value) => useResults.updateName({ index, value })"
-      :name="result.name"
-      :index="index"
-    />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput
-      width="w-24"
-      :variant="colorEditable ? 'light' : ''"
-      :disable="colorEditable ? false : true"
-      :name="result.color"
-      @onChange="(value) => useResults.updateColor({ index, value })"
-    />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput
-      width="w-24"
-      :name="result.space"
-      :variant="spaceEditable ? 'light' : ''"
-      :disable="spaceEditable ? false : true"
-      @onChange="(value) => useResults.updateSpace({ index, value })"
-    />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput
-      width="w-24"
-      variant="light"
-      :name="result.quantity"
-      @onChange="(value) => useResults.updateQuantity({ index, value })"
-    />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput width="w-24" variant="light" :name="result.price" />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput width="w-24" :name="result.totalPrice" disable="true" />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput width="w-24" :name="result.cost" disable="true" />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput width="w-24" :name="result.totalCost" disable="true" />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput width="w-24" :name="result.profit" disable="true" />
-  </td>
-  <td class="px-1 py-3">
-    <BaseInput width="w-24" :name="result.margin + ' %'" disable="true" />
-  </td>
-  <td class="">
-    <NuxtImg
-      src="/icons/delete.svg"
-      width="20"
-      @click="deleteHandler"
-      class="rounded-lg hover:bg-red-light hover:cursor-pointer"
-    />
-  </td>
+  <div class="flex flex-wrap items-center gap-4 py-4 ">
+    <div class="">{{ props.index + 1 }}</div>
+
+    <div class="flex flex-col gap-2 w-96">
+      <BaseSearchField width="w-full" label="Pavadinimas" :data="useProduct.products" @OnClick="(value) => {
+        useResults.selectItem({ index: props.index, value });
+      }
+        " @onChange="(value) => useResults.updateName({ index: props.index, value })
+    " :name="props.result.name" :index="props.index" />
+
+      <div class="flex gap-2">
+        <BaseInput label="spalva" :variant="colorEditable ? 'light' : ''" :disable="colorEditable ? false : true"
+          :name="props.result.color" @onChange="(value) => useResults.updateColor({ index: props.index, value })
+            " />
+
+        <BaseInput :name="props.result.space" label="tarpas" :variant="spaceEditable ? 'light' : ''"
+          :disable="spaceEditable ? false : true" @onChange="(value) => useResults.updateSpace({ index: props.index, value })
+            " />
+
+        <BaseInput variant="light" label="kiekis" :name="props.result.quantity" @onChange="(value) => useResults.updateQuantity({ index: props.index, value })
+          " />
+
+      </div>
+    </div>
+    <div class="flex flex-col w-24 gap-2">
+      <BaseInput variant="light" label="kaina" :name="props.result.price" />
+      <BaseInput width="w-24" label="viso kaina" :name="props.result.totalPrice" disable="true" />
+    </div>
+    <div class="flex flex-col w-24 gap-2">
+      <BaseInput label="savikaina" :name="props.result.cost" disable="true" />
+      <BaseInput width="w-24" label="viso savikaina" :name="props.result.totalCost" disable="true" />
+    </div>
+    <div class="flex flex-col w-24 gap-2">
+      <BaseInput width="w-24" :name="props.result.profit" label="pelnas" disable="true" />
+      <BaseInput width="w-24" label="marža" :name="props.result.margin + ' %'" disable="true" />
+    </div>
+
+    <NuxtImg src="/icons/delete.svg" width="20" @click="deleteHandler"
+      class="rounded-lg hover:bg-red-light hover:cursor-pointer" />
+  </div>
 </template>
 <style scoped></style>

@@ -1,14 +1,14 @@
 <script setup lang="js">
 import { verticals } from '~/data/selectFieldData';
-const { index } = defineProps(['index']);
+const props = defineProps(['index']);
 const useProject = useProjectStore();
 
-const isDouble = useState("isDouble", () =>
-  verticals.includes(useProject.fences[index].type)
+const isDouble = ref(
+  verticals.includes(useProject.fences[props.index].type)
 );
 
 watch(
-  () => useProject.fences[index].type,
+  () => useProject.fences[props.index].type,
   (newType) => {
     isDouble.value = verticals.includes(newType);
   },
@@ -21,43 +21,61 @@ watch(
     <BaseCheckField
       v-if="isDouble"
       label="Dvipusė"
-      @onChange="(value) => useProject.updateMeasureTwoSided({ index, value })"
+      @onChange="
+        (value) =>
+          useProject.updateMeasureTwoSided({ index: props.index, value })
+      "
     />
 
     <BaseCheckField
       label="montavimas"
       name="montavimas"
-      :checked="useProject.fences[index].montavimas"
+      :checked="useProject.fences[props.index].montavimas"
       :onChange="
-        (e) => useProject.updateMontavimas({ value: e.target.checked, index })
+        (e) =>
+          useProject.updateMontavimas({
+            value: e.target.checked,
+            index: props.index,
+          })
       "
     />
 
     <BaseCheckField
       label="borteliai"
       name="borteliai"
-      :checked="useProject.fences[index].borteliai"
+      :checked="useProject.fences[props.index].borteliai"
       :onChange="
-        (e) => useProject.updateBorteliai({ value: e.target.checked, index })
+        (e) =>
+          useProject.updateBorteliai({
+            value: e.target.checked,
+            index: props.index,
+          })
       "
     />
 
     <BaseCheckField
       label="stulpai"
       name="stulpai"
-      :checked="useProject.fences[index].stulpai"
+      :checked="useProject.fences[props.index].stulpai"
       :onChange="
-        (e) => useProject.updateStulpai({ value: e.target.checked, index })
+        (e) =>
+          useProject.updateStulpai({
+            value: e.target.checked,
+            index: props.index,
+          })
       "
     />
 
     <BaseCheckField
       label="tik montavimas"
       name="tik montavimas"
-      :checked="useProject.fences[index].tikMontavimas"
+      :checked="useProject.fences[props.index].tikMontavimas"
       :onChange="
         (e) =>
-          useProject.updateTikMontavimas({ value: e.target.checked, index })
+          useProject.updateTikMontavimas({
+            value: e.target.checked,
+            index: props.index,
+          })
       "
     />
   </div>
